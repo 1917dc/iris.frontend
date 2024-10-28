@@ -1,35 +1,37 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{html,svelte,js,ts}'],
+  content: ["./src/**/*.{html,svelte,js,ts}"],
   daisyui: {
     themes: [
       {
         irisWhite: {
+          primary: "#0C326F",
 
-          "primary": "#155BCB",
+          secondary: "#345994",
 
-          "secondary": "#0c326f",
+          accent: "#6b7280",
 
-          "accent": "#6b7280",
-
-          "neutral": "#303030",
+          neutral: "#303030",
 
           "base-100": "#ffffff",
 
-          "info": "#e0e0e0",
+          info: "#e0e0e0",
 
-          "success": "#168821",
+          success: "#168821",
 
-          "warning": "#ffcd07",
+          warning: "#ffcd07",
 
-          "error": "#e52207",
+          error: "#e52207",
         },
       },
     ],
   },
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        rubik: ["Rubik Mono One", "sans-serif"],
+      },
+    },
   },
-  plugins: [require("@tailwindcss/typography"), require('daisyui')],
-}
-
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+};
