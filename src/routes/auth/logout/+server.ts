@@ -7,5 +7,5 @@ export const GET: RequestHandler = async ({ cookies }) => {
         expires: new Date(0)
     })
 
-    return redirect(303, '/auth/login');
+    return redirect(307, '/');
 };
