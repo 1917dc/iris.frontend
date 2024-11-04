@@ -25,7 +25,7 @@
 <Toaster />
 <main>
   <div>
-    <div class="navbar">
+    <div class="navbar pl-10 pr-10">
       <div class="navbar-start select-none">
         <div>
           <div
@@ -39,7 +39,12 @@
         </div>
       </div>
       <div class="navbar-center select-none">
-        <a href="coordenador/register/professor" class="">Professores</a>
+        {#if $page.url.pathname === "/protected/coordenador/disciplinas"}
+          <button class="btn btn-primary">Disciplinas</button>
+          <a href="coordenador/register/professor" class="btn btn-ghost"
+            >Professores</a
+          >
+        {/if}
       </div>
       <div class="navbar-end select-none">
         <form action="/auth/logout">

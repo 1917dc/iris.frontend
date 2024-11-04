@@ -4,7 +4,9 @@ import { z } from "zod";
 import { type Actions, fail, redirect, type RequestEvent } from "@sveltejs/kit";
 import { BACKEND_URL } from "$env/static/private";
 import type { User } from "$lib/types/User";
+import type { Token } from "$lib/types/Token";
 import { setFlash } from "sveltekit-flash-message/server";
+import { jwtDecode } from "jwt-decode";
 
 const loginSchema = z.object({
   cpf: z.string().refine((cpf: string) => {
@@ -63,20 +65,13 @@ export const actions: Actions = {
       return setFlash({ type: "error", message: "CPF ou senha estão incorretos." }, cookies);
     }
 
-    const user: User = await response.json();
-
-    const expirationDate = new Date(user.token.expirationDate);
-    const currentDate = new Date();
-    const maxAgeInMs = expirationDate.getTime() - currentDate.getTime();
-
-    if (maxAgeInMs < 0) {
-      console.error("O token de autenticação expirou.");
-    }
+    const user : User = await response.json();
+    const token : Token = jwtDecode(user.token.token);
 
     cookies.set("user", JSON.stringify(user), {
       path: "/",
       httpOnly: true,
-      maxAge: maxAgeInMs / 1000,
+      maxAge: token.exp/ 1000,
       sameSite: "strict",
     });
 
@@ -84,6 +79,8 @@ export const actions: Actions = {
     if (user.typeUser === "professor")
       return redirect(302, "/protected/professor");
     if (user.typeUser === "coordenador")
-      return redirect(302, "/protected/coordenador");
+      return redirect(302, "/protected/coordenador/disciplinas");
+
+    return redirect(302, "/protected/coordenador/disciplinas");
   },
 };

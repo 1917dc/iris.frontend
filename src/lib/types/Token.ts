@@ -1,4 +1,6 @@
 export interface Token {
-  token: string;
-  expirationDate: string;
+  iss: string;
+  role: string;
+  sub: string;
+  exp: number;
 }
