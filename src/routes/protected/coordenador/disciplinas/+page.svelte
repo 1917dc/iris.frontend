@@ -28,12 +28,12 @@
       </div>
     </div>
   </div>
-  <div class="bg-primary h-48 w-4/12 rounded-2xl p-10 ml-5">
+  <div class="bg-primary h-48 w-4/12 rounded-2xl p-10 ml-5 relative">
     <div>
       <h1 class="text-white text-4xl text-end font-bold">
         Adicionar uma <br />Disciplina<br />
       </h1>
-      <button class="btn bg-white text-xl m-0"><Plus /></button>
+      <button class="btn bg-white text-xl m-0 absolute bottom-5 left-5"><Plus /></button>
     </div>
   </div>
 </div>
@@ -42,7 +42,7 @@
     class="input w-full bg-gray-200 shadow-no-blur-sm"
     placeholder="Pesquise turmas"
   />
-  <button class="btn btn-primary ml-2 shadow-no-blur-sm"><Search /></button>
+  <button class="btn btn-primary ml-2 shadow-no-blur-sm square-button"><Search /></button>
 </div>
 
 <!-- Este é o começo dos cards das disciplinas -->
@@ -75,11 +75,15 @@
   .grid {
     gap: 1rem;
   }
-  
   :global(.order-first) {
     order: -1;
   }
   :global(.order-last) {
     order: 1;
   }
+   .square-button {
+     width: 50px;
+     height: 50px;
+     padding: 0;
+   }
 </style>
