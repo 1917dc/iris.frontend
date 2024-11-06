@@ -64,7 +64,7 @@
 </svelte:head>
 <div class="justify-center">
   <div class="prose m-auto select-none">
-    <h1 class="text-center text-primary m-10">Cadastro de Professor</h1>
+    <h1 class="text-center text-primary mt-20">Cadastro de Professor</h1>
     <form method="post" action="?/register" class="form-control" use:enhance>
       <div class="m-3">
         <label class="label-text" for="cpf">CPF</label>
@@ -188,7 +188,7 @@
           <p class="text-error text-sm mt-2">{$errors?._errors}</p>
         {/if}
       </div>
-      <button class="btn btn-primary m-3" type="submit"
+      <button class="btn btn-primary m-10" type="submit"
         >Registrar Professor</button
       >
     </form>

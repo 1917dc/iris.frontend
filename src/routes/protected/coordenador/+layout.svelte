@@ -17,11 +17,14 @@
         break;
     }
   }
+
+  $: currentPath = $page.url.pathname;
 </script>
 
 <svelte:head>
   <title>Coordenador</title>
 </svelte:head>
+
 <Toaster />
 <main>
   <div>
@@ -39,12 +42,22 @@
         </div>
       </div>
       <div class="navbar-center select-none">
-        {#if $page.url.pathname === "/protected/coordenador/disciplinas"}
-          <button class="btn btn-primary">Disciplinas</button>
-          <a href="coordenador/register/professor" class="btn btn-ghost"
-            >Professores</a
-          >
-        {/if}
+        <a href="/protected/coordenador/disciplinas"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/disciplinas' ? 'btn-primary' : 'btn-ghost'}">
+          Disciplinas
+        </a>
+        <a href="/protected/coordenador/register/professor"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary' : 'btn-ghost'}">
+          Professores
+        </a>
+        <a href="/protected/coordenador/register/professor"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary' : 'btn-ghost'}">
+          Eletivas
+        </a>
+        <a href="/protected/coordenador/register/professor"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary' : 'btn-ghost'}">
+          Cronograma
+        </a>
       </div>
       <div class="navbar-end select-none">
         <form action="/auth/logout">
