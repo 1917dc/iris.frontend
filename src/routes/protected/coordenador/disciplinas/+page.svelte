@@ -1,11 +1,9 @@
 <script lang="ts">
-  import { FilePlus, Search } from "lucide-svelte";
+  import { FilePlus, Search, Plus } from "lucide-svelte";
 
   export let data;
 
   const user = data.user;
-
-  import { Plus } from 'lucide-svelte';
 
   const disciplines = [
     { name: "Português", professor: "Professor A", className: "Turma A" },
@@ -18,8 +16,8 @@
 </script>
 
 <div class="flex mt-12 ml-10 mr-10">
-  <div class="bg-primary h-48 w-8/12 rounded-2xl p-10">
-    <div class="flex items-center text-white">
+  <div class="bg-[#14315E] h-48 w-8/12 rounded-2xl pl-10 pr-10 flex items-center justify-between">
+    <div class="text-white">
       <div class="inline">
         <h1 class="text-4xl font-medium">
           Bem-vindo(a) de volta, <span class="font-black">{user.name}</span>
@@ -27,8 +25,9 @@
         <h2 class="mt-3">Login feito como <span class="font-bold">{user.typeUser}</span></h2>
       </div>
     </div>
+    <img src="/pessoas.svg" alt="Pessoas trabalhando" class="h-auto max-h-full">
   </div>
-  <div class="bg-primary h-48 w-4/12 rounded-2xl p-10 ml-5 relative">
+  <div class="bg-[#14315E] h-48 w-4/12 rounded-2xl p-14 ml-5 relative">
     <div>
       <h1 class="text-white text-4xl text-end font-bold">
         Adicionar uma <br />Disciplina<br />
@@ -42,7 +41,7 @@
     class="input w-full bg-gray-200 shadow-no-blur-sm"
     placeholder="Pesquise turmas"
   />
-  <button class="btn btn-primary ml-2 shadow-no-blur-sm square-button"><Search /></button>
+  <button class="btn btn-primary bg-primary ml-2 shadow-no-blur-sm square-button"><Search /></button>
 </div>
 
 <!-- Este é o começo dos cards das disciplinas -->
@@ -82,8 +81,8 @@
     order: 1;
   }
    .square-button {
-     width: 50px;
-     height: 50px;
+     width: 3.125rem;
+     height: 3.125rem;
      padding: 0;
    }
 </style>

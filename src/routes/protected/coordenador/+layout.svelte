@@ -43,25 +43,25 @@
       </div>
       <div class="navbar-center select-none">
         <a href="/protected/coordenador/disciplinas"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/disciplinas' ? 'btn-primary' : 'btn-ghost'}">
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/disciplinas' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Disciplinas
         </a>
         <a href="/protected/coordenador/register/professor"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary' : 'btn-ghost'}">
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Professores
         </a>
         <a href="/protected/coordenador/register/professor"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary' : 'btn-ghost'}">
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Eletivas
         </a>
         <a href="/protected/coordenador/register/professor"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary' : 'btn-ghost'}">
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Cronograma
         </a>
       </div>
       <div class="navbar-end select-none">
         <form action="/auth/logout">
-          <button class="btn btn-primary shadow-no-blur-sm square-button"><LogOut /></button>
+          <button class="btn btn-primary bg-primary shadow-no-blur-sm square-button"><LogOut /></button>
         </form>
       </div>
     </div>
@@ -71,8 +71,8 @@
 
 <style>
   .square-button {
-    width: 50px;
-    height: 50px;
+    width: 3.125rem;
+    height: 3.125rem;
     padding: 0;
   }
 </style>
