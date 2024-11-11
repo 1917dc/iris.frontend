@@ -47,40 +47,69 @@ export const actions: Actions = {
     }
 
     const { cpf, password } = form.data;
-    const response = await fetch(BACKEND_URL + "auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cpf: cpf,
-        password: password,
-      }),
-    });
 
-    if (!response.ok) {
-      // TODO:
-      // Colocar o mesmo tratamento de exceções
-      // que foi feito na página de registro dos coordenadores.
-      return setFlash({ type: "error", message: "CPF ou senha estão incorretos." }, cookies);
+    // O usuário sempre é inicializado com o valor nulo
+    let user : User | null = null;
+
+    try {
+      const response = await fetch(BACKEND_URL + "auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cpf: cpf,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        setFlash({ type: "error", message: "CPF ou senha estão incorretos." }, cookies);
+        return message(form, { status: "error", text: "CPF ou senha estão incorretos." }, {
+          status: 401,
+        });
+      }
+
+      user = await response.json();
+
+      // Valida o usuário antes de proceder
+      if (!user || !user.token || !user.token.token) {
+        setFlash({ type: "error", message: "Erro ao processar dados do usuário." }, cookies);
+        return message(form, { status: "error", text: "Erro ao processar dados do usuário." }, {
+          status: 500,
+        });
+      }
+
+      const token : Token = jwtDecode(user.token.token);
+
+      cookies.set("user", JSON.stringify(user), {
+        path: "/",
+        httpOnly: true,
+        maxAge: token.exp/ 1000,
+        sameSite: "strict",
+      });
+
+    } catch (e) {
+      console.error('Login error:', e);
+      setFlash({ type: "error", message: "Erro no servidor. Tente novamente mais tarde." }, cookies);
+      return message(form, { status: "error", text: "Erro no servidor. Tente novamente mais tarde." }, {
+        status: 500,
+      });
     }
 
-    const user : User = await response.json();
-    const token : Token = jwtDecode(user.token.token);
+    if (user) {
+      if (user.typeUser === "professor") {
+        throw redirect(302, "/protected/professor");
+      } else if (user.typeUser === "coordenador") {
+        throw redirect(302, "/protected/coordenador/disciplinas");
+      }
 
-    cookies.set("user", JSON.stringify(user), {
-      path: "/",
-      httpOnly: true,
-      maxAge: token.exp/ 1000,
-      sameSite: "strict",
-    });
-
-
-    if (user.typeUser === "professor")
-      return redirect(302, "/protected/professor");
-    if (user.typeUser === "coordenador")
-      return redirect(302, "/protected/coordenador/disciplinas");
-
-    return redirect(302, "/protected/coordenador/disciplinas");
+      throw redirect(302, "/protected/coordenador/disciplinas");
+    } else {
+      setFlash({ type: "error", message: "Usuário não encontrado." }, cookies);
+      return message(form, { status: "error", text: "Usuário não encontrado." }, {
+        status: 404,
+      });
+    }
   },
 };

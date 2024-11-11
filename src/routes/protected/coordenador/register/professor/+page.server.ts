@@ -40,29 +40,38 @@ export const actions: Actions = {
 
         const { cpf, password, name } = form.data;
 
-        const response = await fetch(BACKEND_URL + 'auth/register/professor', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-                // TODO:
-                // assim que o encapsulamento da rota for implementado
-                // passar o token no header da requisição
-            },
-            body: JSON.stringify({
-                name: name,
-                cpf: cpf,
-                password: password,
+        try {
+            const response = await fetch(BACKEND_URL + 'auth/register/professor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                    // TODO:
+                    // assim que o encapsulamento da rota for implementado
+                    // passar o token no header da requisição
+                },
+                body: JSON.stringify({
+                    name: name,
+                    cpf: cpf,
+                    password: password,
+                })
             })
-        })
 
-        if(!response.ok){
-            setFlash({ type: 'error', message: 'O CPF já está cadastrado no sistema.' }, cookies)
-            return message(form, { status: 'error', text: 'O CPF já foi cadastrado no sistema.' }, {
-                status: 409
-            })
+            if(!response.ok){
+                setFlash({ type: 'error', message: 'O CPF já está cadastrado no sistema.' }, cookies)
+                return message(form, { status: 'error', text: 'O CPF já foi cadastrado no sistema.' }, {
+                    status: 409
+                })
+            }
+
+            setFlash({ type: 'success', message: 'O professor foi cadastrado com sucesso!' }, cookies)
+            return { form }
+
+        } catch (e) {
+            console.error('Erro ao registrar professor:', e);
+            setFlash({ type: 'error', message: 'Erro no servidor. Tente novamente mais tarde.' }, cookies);
+            return message(form, { status: 'error', text: 'Erro no servidor. Tente novamente mais tarde.' }, {
+                status: 500
+            });
         }
-
-        setFlash({ type: 'success', message: 'O professor foi cadastrado com sucesso!' }, cookies)
-        return { form }
     }
 }
