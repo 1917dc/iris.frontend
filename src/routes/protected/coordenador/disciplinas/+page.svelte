@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Search, Plus } from "lucide-svelte";
+  import {fade} from "svelte/transition";
 
   export let data;
 
@@ -49,7 +50,7 @@
 </div>
 
 <!-- Este é o começo dos cards das disciplinas -->
-<div class="grid gap-4 grid-cols-4 m-10">
+<div class="grid gap-4 grid-cols-4 m-10" in:fade={{ duration: 800}}>
   {#each disciplines as { name, professor, className }, index}
     <div
             class="bg-gray-200 shadow-no-blur-sm rounded-lg p-4 flex flex-col justify-between h-50

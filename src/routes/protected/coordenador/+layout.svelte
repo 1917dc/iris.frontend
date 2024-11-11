@@ -35,8 +35,10 @@
             class="h-16 w-16 rounded-md bg-primary flex items-center justify-center shadow-no-blur-sm square-button"
           >
             <div class="font-rubik text-white text-xl">
-              <h1 class="-mb-3">ÍR</h1>
-              <h1>IS</h1>
+              <a href="/protected/coordenador/disciplinas">
+                <h1 class="-mb-3">ÍR</h1>
+                <h1>IS</h1>
+              </a>
             </div>
           </div>
         </div>
@@ -50,16 +52,16 @@
            class="m-0.5 text-base btn {currentPath === '/protected/coordenador/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Professores
         </a>
-        <a href="/protected/coordenador/register/professor"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+        <a href="/protected/coordenador/disciplinas"
+           class="m-0.5 text-base btn btn-ghost">
           Estudantes
         </a>
-        <a href="/protected/coordenador/register/professor"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+        <a href="/protected/coordenador/disciplinas"
+           class="m-0.5 text-base btn btn-ghost">
           Eletivas
         </a>
-        <a href="/protected/coordenador/register/professor"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+        <a href="/protected/coordenador/disciplinas"
+           class="m-0.5 text-base btn btn-ghost">
           Cronograma
         </a>
       </div>
