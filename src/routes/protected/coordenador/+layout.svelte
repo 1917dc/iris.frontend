@@ -46,9 +46,13 @@
            class="m-0.5 text-base btn {currentPath === '/protected/coordenador/disciplinas' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Disciplinas
         </a>
+        <a href="/protected/coordenador/professor"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+          Professores
+        </a>
         <a href="/protected/coordenador/register/professor"
            class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
-          Professores
+          Estudantes
         </a>
         <a href="/protected/coordenador/register/professor"
            class="m-0.5 text-base btn {currentPath === '/protected/coordenador/register/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">

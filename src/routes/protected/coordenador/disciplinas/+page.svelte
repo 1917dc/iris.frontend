@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FilePlus, Search, Plus } from "lucide-svelte";
+  import { Search, Plus } from "lucide-svelte";
 
   export let data;
 
@@ -14,6 +14,10 @@
     { name: "Inglês", professor: "Professor F", className: "Turma F" },
   ];
 </script>
+
+<svelte:head>
+  <title>Disciplinas</title>
+</svelte:head>
 
 <div class="flex mt-12 ml-10 mr-10">
   <div class="bg-[#14315E] h-48 w-8/12 rounded-2xl pl-10 pr-10 flex items-center justify-between">
