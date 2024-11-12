@@ -2,7 +2,7 @@ import type { PageServerLoad } from './$types';
 import {message, superValidate} from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { z } from 'zod';
-import {type Actions, fail} from "@sveltejs/kit";
+import {type Actions, type Cookies, fail} from "@sveltejs/kit";
 import { BACKEND_URL } from '$env/static/private';
 import {setFlash} from "sveltekit-flash-message/server";
 
@@ -30,6 +30,19 @@ export const load = (async () => {
     return { form };
 }) satisfies PageServerLoad;
 
+const handleError = async (response: Response, cookies: Cookies) => {
+    let errorMessage;
+
+    try {
+        const errorData = await response.json();
+        errorMessage = errorData.mensagem;
+    } catch (e) {
+        errorMessage = "Erro inesperado. Tente novamente mais tarde.";
+    }
+
+    setFlash({ type: "error", message: errorMessage }, cookies);
+};
+
 export const actions: Actions = {
     register: async ({ request, cookies }) => {
         const form = await superValidate(request, zod(loginSchema));
@@ -40,38 +53,26 @@ export const actions: Actions = {
 
         const { cpf, password, name } = form.data;
 
-        try {
-            const response = await fetch(BACKEND_URL + 'auth/register/professor', {
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/json'
-                    // TODO:
-                    // assim que o encapsulamento da rota for implementado
-                    // passar o token no header da requisição
-                },
-                body: JSON.stringify({
-                    name: name,
-                    cpf: cpf,
-                    password: password,
-                })
+        const response = await fetch(BACKEND_URL + 'auth/register/professor', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+                // TODO:
+                // assim que o encapsulamento da rota for implementado
+                // passar o token no header da requisição
+            },
+            body: JSON.stringify({
+                name: name,
+                cpf: cpf,
+                password: password,
             })
+        })
 
-            if(!response.ok){
-                setFlash({ type: 'error', message: 'O CPF já está cadastrado no sistema.' }, cookies)
-                return message(form, { status: 'error', text: 'O CPF já foi cadastrado no sistema.' }, {
-                    status: 409
-                })
-            }
-
-            setFlash({ type: 'success', message: 'O professor foi cadastrado com sucesso!' }, cookies)
-            return { form }
-
-        } catch (e) {
-            console.error('Erro ao registrar professor:', e);
-            setFlash({ type: 'error', message: 'Erro no servidor. Tente novamente mais tarde.' }, cookies);
-            return message(form, { status: 'error', text: 'Erro no servidor. Tente novamente mais tarde.' }, {
-                status: 500
-            });
+        if(!response.ok){
+            return await handleError(response, cookies);
         }
+
+        setFlash({ type: 'success', message: 'O professor foi cadastrado com sucesso!' }, cookies)
+        return { form }
     }
 }
