@@ -1,3 +1,7 @@
+import typography from "@tailwindcss/typography";
+import daisyui from "daisyui";
+
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{html,svelte,js,ts}"],
@@ -7,7 +11,7 @@ export default {
         irisWhite: {
           primary: "#0C326F",
 
-          secondary: "#345994",
+          secondary: "#14315E",
 
           accent: "#6b7280",
 
@@ -37,5 +41,5 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [typography, daisyui],
 };
