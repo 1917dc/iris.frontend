@@ -1,7 +1,7 @@
 import { message, setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { z } from "zod";
-import { type Actions, fail, redirect, type RequestEvent } from "@sveltejs/kit";
+import {type Actions, type Cookies, fail, redirect, type RequestEvent} from "@sveltejs/kit";
 import { BACKEND_URL } from "$env/static/private";
 import type { User } from "$lib/types/User";
 import type { Token } from "$lib/types/Token";
@@ -38,6 +38,19 @@ export const load = async () => {
   return { form };
 };
 
+const handleError = async (response: Response, cookies: Cookies) => {
+  let errorMessage;
+
+  try {
+    const errorData = await response.json();
+    errorMessage = errorData.mensagem;
+  } catch (e) {
+    errorMessage = "Erro inesperado. Tente novamente mais tarde.";
+  }
+
+  setFlash({ type: "error", message: errorMessage }, cookies);
+};
+
 export const actions: Actions = {
   login: async ({ cookies, request }: RequestEvent) => {
     const form = await superValidate(request, zod(loginSchema));
@@ -48,68 +61,38 @@ export const actions: Actions = {
 
     const { cpf, password } = form.data;
 
-    // O usuário sempre é inicializado com o valor nulo
-    let user : User | null = null;
+    const response = await fetch(BACKEND_URL + "auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cpf: cpf,
+        password: password,
+      }),
+    });
 
-    try {
-      const response = await fetch(BACKEND_URL + "auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cpf: cpf,
-          password: password,
-        }),
-      });
-
-      if (!response.ok) {
-        setFlash({ type: "error", message: "CPF ou senha estão incorretos." }, cookies);
-        return message(form, { status: "error", text: "CPF ou senha estão incorretos." }, {
-          status: 401,
-        });
-      }
-
-      user = await response.json();
-
-      // Valida o usuário antes de proceder
-      if (!user || !user.token || !user.token.token) {
-        setFlash({ type: "error", message: "Erro ao processar dados do usuário." }, cookies);
-        return message(form, { status: "error", text: "Erro ao processar dados do usuário." }, {
-          status: 500,
-        });
-      }
-
-      const token : Token = jwtDecode(user.token.token);
-
-      cookies.set("user", JSON.stringify(user), {
-        path: "/",
-        httpOnly: true,
-        maxAge: token.exp/ 1000,
-        sameSite: "strict",
-      });
-
-    } catch (e) {
-      console.error('Login error:', e);
-      setFlash({ type: "error", message: "Erro no servidor. Tente novamente mais tarde." }, cookies);
-      return message(form, { status: "error", text: "Erro no servidor. Tente novamente mais tarde." }, {
-        status: 500,
-      });
+    if (!response.ok) {
+      return await handleError(response, cookies);
     }
 
-    if (user) {
-      if (user.typeUser === "professor") {
-        throw redirect(302, "/protected/professor");
-      } else if (user.typeUser === "coordenador") {
-        throw redirect(302, "/protected/coordenador/disciplinas");
-      }
+    const user : User = await response.json();
+    const token : Token = jwtDecode(user.token.token);
+    const expirationTime = Math.floor(token.exp - (Date.now() / 1000));
 
+    cookies.set("user", JSON.stringify(user), {
+      path: "/",
+      httpOnly: true,
+      maxAge: expirationTime,
+      sameSite: "strict",
+    });
+
+    if (user.typeUser === "professor") {
+      throw redirect(302, "/protected/professor");
+    } else if (user.typeUser === "coordenador") {
       throw redirect(302, "/protected/coordenador/disciplinas");
-    } else {
-      setFlash({ type: "error", message: "Usuário não encontrado." }, cookies);
-      return message(form, { status: "error", text: "Usuário não encontrado." }, {
-        status: 404,
-      });
     }
+
+    throw redirect(302, "/protected/coordenador/disciplinas");
   },
 };
