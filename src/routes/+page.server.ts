@@ -76,23 +76,19 @@ export const actions: Actions = {
       return await handleError(response, cookies);
     }
 
-    const user : User = await response.json();
-    const token : Token = jwtDecode(user.token.token);
-    const expirationTime = Math.floor(token.exp - (Date.now() / 1000));
+    const { token } = await response.json();
+    const user : Token = jwtDecode(token.token);
 
-    cookies.set("user", JSON.stringify(user), {
+    const expirationTime = Math.floor(user.exp - (Date.now() / 1000));
+
+    cookies.set("token", token.token, {
       path: "/",
       httpOnly: true,
       maxAge: expirationTime,
       sameSite: "strict",
     });
 
-    if (user.typeUser === "professor") {
-      throw redirect(302, "/protected/professor");
-    } else if (user.typeUser === "coordenador") {
-      throw redirect(302, "/protected/coordenador/disciplinas");
-    }
-
+    // TODO: Fazer tratamento de redirects quando as roles forem completamente colocadas no sistema.
     throw redirect(302, "/protected/coordenador/disciplinas");
   },
 };

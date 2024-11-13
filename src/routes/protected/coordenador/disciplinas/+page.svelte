@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { jwtDecode } from "jwt-decode";
   import { Search, Plus } from "lucide-svelte";
+  import type { Token } from "$lib/types/Token.ts";
   import { fade } from "svelte/transition";
 
   export let data;
-
-  const user = data.user;
+  const user: Token = jwtDecode(data.token);
 
   const disciplines = [
     { name: "Português", professor: "Professor A", className: "Turma A" },
@@ -27,10 +28,10 @@
     <div class="text-white">
       <div class="inline">
         <h1 class="text-4xl font-medium">
-          Bem-vindo(a) de volta, <span class="font-black">{user.name}</span>
+          Bem-vindo(a) de volta, <span class="font-black">{user.nome}</span>
         </h1>
         <h2 class="mt-3">
-          Login feito como <span class="font-bold">{user.typeUser}</span>
+          Login feito como <span class="font-bold">{user.role}</span>
         </h2>
       </div>
     </div>
