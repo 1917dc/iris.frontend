@@ -1,10 +1,12 @@
 import type { PageServerLoad } from './$types';
-import {message, superValidate} from 'sveltekit-superforms'
+import { superValidate} from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { z } from 'zod';
 import {type Actions, type Cookies, fail} from "@sveltejs/kit";
 import { BACKEND_URL } from '$env/static/private';
 import {setFlash} from "sveltekit-flash-message/server";
+import { jwtDecode } from 'jwt-decode';
+import type { Token } from '$lib/types/Token.ts';
 
 const loginSchema = z.object({
     cpf: z.string()
@@ -20,7 +22,7 @@ const loginSchema = z.object({
         }, "Digite um CPF válido."),
     password: z.string().min(8, { message: "A senha deve conter ao menos 8 caracteres" }),
     confirm: z.string(),
-    name: z.string(),
+    name: z.string().min(2, { message: "Campo obrigatório." }),
 })
     .refine((data) => data.password == data.confirm, "As senhas não coincidem");
 
@@ -46,20 +48,22 @@ const handleError = async (response: Response, cookies: Cookies) => {
 export const actions: Actions = {
     register: async ({ request, cookies }) => {
         const form = await superValidate(request, zod(loginSchema));
-        
+        const token = cookies.get('token');
+
         if(!form.valid){
             return fail(400, { form: form })
         }
 
         const { cpf, password, name } = form.data;
 
-        const response = await fetch(BACKEND_URL + 'auth/register/professor', {
+        const response = await fetch(BACKEND_URL + 'auth/register/coordenador', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
                 // TODO:
                 // assim que o encapsulamento da rota for implementado
                 // passar o token no header da requisição
+                //"Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 name: name,

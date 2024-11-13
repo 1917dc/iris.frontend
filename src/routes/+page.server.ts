@@ -3,7 +3,6 @@ import { zod } from "sveltekit-superforms/adapters";
 import { z } from "zod";
 import {type Actions, type Cookies, fail, redirect, type RequestEvent} from "@sveltejs/kit";
 import { BACKEND_URL } from "$env/static/private";
-import type { User } from "$lib/types/User";
 import type { Token } from "$lib/types/Token";
 import { setFlash } from "sveltekit-flash-message/server";
 import { jwtDecode } from "jwt-decode";

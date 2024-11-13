@@ -1,5 +1,4 @@
 import {type Handle, redirect} from "@sveltejs/kit";
-import type {User} from "$lib/types/User";
 import { jwtDecode } from "jwt-decode";
 
 export const handle = (async ({ event, resolve }) => {
