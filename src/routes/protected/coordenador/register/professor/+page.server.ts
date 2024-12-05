@@ -56,14 +56,14 @@ export const actions: Actions = {
 
         const { cpf, password, name } = form.data;
 
-        const response = await fetch(BACKEND_URL + 'auth/register/coordenador', {
+        const response = await fetch(BACKEND_URL + 'auth/register/professor', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
                 // TODO:
                 // assim que o encapsulamento da rota for implementado
                 // passar o token no header da requisição
-                //"Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 name: name,
