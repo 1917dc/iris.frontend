@@ -5,24 +5,23 @@ import { jwtDecode } from "jwt-decode";
 export const handle = (async ({ event, resolve }) => {
     const { cookies } = event
     const cookieToken = cookies.get("token")
-    let token : string | null = null
 
     try {
         if(typeof cookieToken === "string"){
-            token = cookieToken
 
-            const response = await fetch(BACKEND_URL + 'auth/validate/token', {
+            const response = await fetch(BACKEND_URL + 'auth/validar-token', {
                 method: 'POST',
                 body: JSON.stringify({
-                    "token" : token
+                    "token": cookieToken
                 })
             })
 
+            
             if(!response.ok){
                 throw redirect(308, '/')
             }
         }
-
+        
         
     } catch(e : any){
         console.error(`Erro ao assimilar token: ${e.message}`)
@@ -31,10 +30,10 @@ export const handle = (async ({ event, resolve }) => {
     // TODO: Fazer o tratamento de exceção do token de usuário
     //       e fazer uma tela personalizada de erro, que dá a opção de efetuar o login de novo. 
 
-    if(!token){
+    if (!cookieToken){
         return resolve(event)
     }
 
-    event.locals.token = token;
+    event.locals.token = cookieToken;
     return resolve(event);
 }) satisfies Handle;
