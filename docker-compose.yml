@@ -19,7 +19,7 @@ services:
     build: 
       context: ../iris-backend
       Dockerfile: Dockerfile
-    container_name: iris_api
+    container_name: iris-api
     ports:
       - "8080:8080"
     depends_on:
@@ -35,11 +35,11 @@ services:
 
   app:
     build: .
-    container_name: iris_app
+    container_name: iris-app
     ports:
       - "4173:4173"
     environment :
-      - BACKEND_URL=http://iris_api:8080/
+      - BACKEND_URL=http://iris-api:8080/
     networks:
       - iris_network
 
