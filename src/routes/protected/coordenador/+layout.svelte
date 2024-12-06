@@ -52,17 +52,13 @@
            class="m-0.5 text-base btn {currentPath === '/protected/coordenador/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Professores
         </a>
-        <a href="/protected/coordenador/disciplinas"
-           class="m-0.5 text-base btn btn-ghost">
+        <a href="/protected/coordenador/alunos"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/alunos' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Estudantes
         </a>
-        <a href="/protected/coordenador/disciplinas"
-           class="m-0.5 text-base btn btn-ghost">
+        <a href="/protected/coordenador/eletivas"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/eletivas' ? 'btn-primary bg-primary' : 'btn-ghost'}">
           Eletivas
-        </a>
-        <a href="/protected/coordenador/disciplinas"
-           class="m-0.5 text-base btn btn-ghost">
-          Cronograma
         </a>
       </div>
       <div class="navbar-end select-none">

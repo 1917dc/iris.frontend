@@ -69,10 +69,11 @@
 <div class="grid gap-4 grid-cols-4 m-10" in:fade={{ duration: 800 }}>
   {#each professores as { name, disciplinas }, index}
     <div
-      class="bg-gray-200 shadow-no-blur-sm rounded-lg p-4 flex flex-col justify-between h-50
+      class="bg-gray-200 shadow-no-blur-sm rounded-lg p-4 flex flex-col justify-between h-52
           {index % 6 === 2 ? 'col-span-2 order-last' : ''}
           {index % 6 === 5 ? 'col-span-2 order-first' : ''}
           {index % 6 !== 2 && index % 6 !== 5 ? 'col-span-1' : ''}"
+      id="card"
     >
       <h2 class="text-2xl font-semibold text-primary mb-2">{name}</h2>
       <p class="text-lg font-medium">Disciplinas: {disciplinas}</p>
@@ -96,6 +97,15 @@
   .grid {
     gap: 1rem;
   }
+
+  #card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #card:hover {
+    transform: translateY(-10px);
+  }
+
   :global(.order-first) {
     order: -1;
   }

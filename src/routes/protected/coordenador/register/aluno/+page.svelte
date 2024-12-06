@@ -3,20 +3,21 @@
 </script>
 
 <svelte:head>
-    <title>Cadastro - Disciplina</title>
+    <title>Cadastro - Aluno</title>
 </svelte:head>
 <div class="justify-center">
     <div class="prose m-auto select-none">
-        <h1 class="text-center text-primary mt-20">Cadastro de Disciplina</h1>
+        <h1 class="text-center text-primary mt-20">Cadastro de Aluno</h1>
         <form method="post" action="?/register" class="form-control">
+
             <div class="m-3">
-                <label class="label-text" for="subjectName">Nome da Disciplina</label>
+                <label class="label-text" for="fullName">Nome Completo</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="subjectName"
+                            name="fullName"
                             type="text"
                             class="grow"
-                            placeholder="Matemática, Física, Português"
+                            placeholder="Georgiana Soares"
                             spellcheck="false"
                             autocomplete="off"
                     />
@@ -24,13 +25,43 @@
             </div>
 
             <div class="m-3">
-                <label class="label-text" for="professor">Professor</label>
+                <label class="label-text" for="dob">Data de Nascimento</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="professor"
+                            name="dob"
+                            type="date"
+                            class="grow"
+                            spellcheck="false"
+                    />
+                </label>
+            </div>
+
+            <div class="m-3">
+                <label class="label-text">Sexo</label>
+                <div class="flex items-center gap-3">
+                    <label class="cursor-pointer">
+                        <input name="gender" type="radio" value="masculino" class="radio" />
+                        Masculino
+                    </label>
+                    <label class="cursor-pointer">
+                        <input name="gender" type="radio" value="feminino" class="radio" />
+                        Feminino
+                    </label>
+                    <label class="cursor-pointer">
+                        <input name="gender" type="radio" value="outro" class="radio" />
+                        Outro
+                    </label>
+                </div>
+            </div>
+
+            <div class="m-3">
+                <label class="label-text" for="address">Endereço</label>
+                <label class="input input-bordered flex items-center gap-2">
+                    <input
+                            name="address"
                             type="text"
                             class="grow"
-                            placeholder="João Alcântara"
+                            placeholder="Rua das Flores, 123"
                             spellcheck="false"
                             autocomplete="off"
                     />
@@ -38,13 +69,13 @@
             </div>
 
             <div class="m-3">
-                <label class="label-text" for="classNumber">Séria/Turma</label>
+                <label class="label-text" for="phone">Telefone</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="classNumber"
-                            type="text"
+                            name="phone"
+                            type="tel"
                             class="grow"
-                            placeholder="3º ano"
+                            placeholder="(12) 93456-7891"
                             spellcheck="false"
                             autocomplete="off"
                     />
@@ -52,28 +83,25 @@
             </div>
 
             <div class="m-3">
-                <label class="label-text" for="credits">Horas por semana</label>
+                <label class="label-text" for="class">Turma</label>
                 <label class="input input-bordered flex items-center gap-2">
-                    <input
-                            name="credits"
-                            type="number"
-                            min="1"
-                            max="10"
-                            class="grow"
-                            placeholder="2 horas por semana"
-                            spellcheck="false"
-                    />
+                    <select name="class" class="grow">
+                        <option value="">Selecione a Turma</option>
+                        <option value="1">1º Ano</option>
+                        <option value="2">2º Ano</option>
+                        <option value="3">3º Ano</option>
+                    </select>
                 </label>
             </div>
 
             <div class="m-3">
-                <label class="label-text" for="semester">Ano letivo</label>
+                <label class="label-text" for="class">Matrícula</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="semester"
+                            name="class"
                             type="text"
                             class="grow"
-                            placeholder="2025"
+                            placeholder="ABC123ZH"
                             spellcheck="false"
                             autocomplete="off"
                     />
@@ -81,7 +109,7 @@
             </div>
 
             <button class="btn btn-primary m-10" type="submit">
-                Registrar Disciplina
+                Registrar Aluno
             </button>
         </form>
 
