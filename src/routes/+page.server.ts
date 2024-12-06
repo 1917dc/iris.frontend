@@ -87,7 +87,12 @@ export const actions: Actions = {
       sameSite: "strict",
     });
 
-    // TODO: Fazer tratamento de redirects quando as roles forem completamente colocadas no sistema.
-    throw redirect(302, "/protected/coordenador/disciplinas");
+    if (user.role.includes("ROLE_COORDENADOR")) {
+      throw redirect(302, "/protected/coordenador/disciplinas");
+    } else if (user.role.includes("ROLE_PROFESSOR")) {
+      throw redirect(302, "/protected/professor/disciplinas");
+    } else {
+      throw redirect(302, "/protected/coordenador/disciplinas");
+    }
   },
 };
