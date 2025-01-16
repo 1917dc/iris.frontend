@@ -18,7 +18,7 @@ services:
   api:
     build: 
       context: ../iris-backend
-      Dockerfile: Dockerfile
+      dockerfile: Dockerfile
     container_name: iris-api
     ports:
       - "8080:8080"
