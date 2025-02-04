@@ -2,14 +2,8 @@ FROM node:18 AS build
 
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./
+COPY ./package*.json ./
 
-RUN npm ci
-
-COPY ./ .
-
-RUN npm run build
+RUN npm install
 
 EXPOSE 4173
-
-CMD ["npm", "run", "dev"]

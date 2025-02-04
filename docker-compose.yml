@@ -17,7 +17,7 @@ services:
 
   api:
     build: 
-      context: ../iris-backend
+      context: ../iris-api
       dockerfile: Dockerfile
     container_name: iris-api
     ports:
@@ -42,10 +42,16 @@ services:
       - BACKEND_URL=http://iris-api:8080/
     networks:
       - iris_network
+    command: npm run dev
+    volumes:
+      - ./src:/app/src
+      - ./static:/app/static
+      - ./vite.config.js:/app/vite.config.js
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./svelte.config.js:/app/svelte.config.js
 
 volumes:
   postgres_data:
-
 networks:
   iris_network:
     driver: bridge
