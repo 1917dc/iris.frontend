@@ -27,9 +27,9 @@ O sistema tem como objetivo auxiliar e substituir parte do trabalho manual reali
 - **Swagger**
 
 ## Contribuidores
-**Luiz Gustavo**: Programação geral do front end, UI/UX e gerenciamento de requisitos (Github: https://github.com/1917dc) \
+**Luiz Gustavo**: Programação geral do front end, contribuiu com backend, UI/UX e gerenciamento de requisitos (Github: https://github.com/1917dc) \
 **Karoline Rodrigues**: Desenvolvimento de todo Front-end relacionado ao acesso de administradores ao sistema (Github: https://github.com/krol-rustns) \
-**Leonardo Brito**: Gerenciamento do repositório e assistência de forma geral (Github: https://github.com/D0ntP4nic42) \
+**Leonardo Brito**: Desenvolvimento do backend, e criação de dockerfiles (Github: https://github.com/D0ntP4nic42) \
 **Breno Amorim**: Desenvolvimento backend (Github: https://github.com/brenoakese)
 
 ## Como rodar nosso projeto
