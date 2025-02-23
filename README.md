@@ -27,11 +27,12 @@ O sistema tem como objetivo auxiliar e substituir parte do trabalho manual reali
 - **Swagger**
 
 ## Contribuidores
-**Luiz Gustavo**: Programação geral do front end, UI/UX e gerenciamento de requisitos (Github: https://github.com/1917dc) \
-**Karoline Rodrigues**: Desenvolvimento de todo Front-end relacionado ao acesso de administradores ao sistema (Github: https://github.com/krol-rustns) \
+**Luiz Gustavo**: Programação geral do front end, UI/UX e gerenciamento de requisitos (Github: https://github.com/1917dc) 
+**Karoline Rodrigues**: Desenvolvimento de todo Front-end relacionado ao acesso de administradores ao sistema (Github: https://github.com/krol-rustns) 
 **Leonardo Brito**: Gerenciamento do repositório e assistência de forma geral (Github: https://github.com/D0ntP4nic42)
+**Breno Amorim**: Desenvolvimento backend (Github: https://github.com/brenoakese)
 
 ## Como rodar nosso projeto
 O Backend precisará ser clonado antes, para que o usuário tenha acesso á api que alimenta o sistema; atualmente estamos desenvolvendo uma nova versão da api que está melhor estruturada do que a que usamos atualmente no projeto, ela pode ser encontrada em: https://github.com/D0ntP4nic42/iris-api \
 
-Atualmente estamos usando a api antiga, que pode ser encontrada em: https://github.com/brenoakese/iris-backend \
+Atualmente estamos usando a api antiga, que pode ser encontrada em: https://github.com/brenoakese/iris-backend
