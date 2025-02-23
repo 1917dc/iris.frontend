@@ -24,7 +24,7 @@ O sistema tem como objetivo auxiliar e substituir parte do trabalho manual reali
 - **Java 21**
 - **Spring Boot**
 - **Spring Security**
-- **Swagger**
+- **Swagger UI**
 
 ## Contribuidores
 **Luiz Gustavo**: Programação geral do front end, contribuiu com backend, UI/UX e gerenciamento de requisitos (Github: https://github.com/1917dc) \
