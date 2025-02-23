@@ -10,7 +10,7 @@ export default {
         irisWhite: {
           primary: "#0C326F",
 
-          secondary: "#345994",
+          secondary: "#14315E",
 
           accent: "#6b7280",
 

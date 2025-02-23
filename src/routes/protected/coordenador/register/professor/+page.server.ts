@@ -1,10 +1,12 @@
 import type { PageServerLoad } from './$types';
-import {message, superValidate} from 'sveltekit-superforms'
+import { superValidate} from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { z } from 'zod';
-import {type Actions, fail} from "@sveltejs/kit";
+import {type Actions, type Cookies, fail} from "@sveltejs/kit";
 import { BACKEND_URL } from '$env/static/private';
 import {setFlash} from "sveltekit-flash-message/server";
+import { jwtDecode } from 'jwt-decode';
+import type { Token } from '$lib/types/Token.ts';
 
 const loginSchema = z.object({
     cpf: z.string()
@@ -20,7 +22,7 @@ const loginSchema = z.object({
         }, "Digite um CPF válido."),
     password: z.string().min(8, { message: "A senha deve conter ao menos 8 caracteres" }),
     confirm: z.string(),
-    name: z.string(),
+    name: z.string().min(2, { message: "Campo obrigatório." }),
 })
     .refine((data) => data.password == data.confirm, "As senhas não coincidem");
 
@@ -30,10 +32,24 @@ export const load = (async () => {
     return { form };
 }) satisfies PageServerLoad;
 
+const handleError = async (response: Response, cookies: Cookies) => {
+    let errorMessage;
+
+    try {
+        const errorData = await response.json();
+        errorMessage = errorData.mensagem;
+    } catch (e) {
+        errorMessage = "Erro inesperado. Tente novamente mais tarde.";
+    }
+
+    setFlash({ type: "error", message: errorMessage }, cookies);
+};
+
 export const actions: Actions = {
     register: async ({ request, cookies }) => {
         const form = await superValidate(request, zod(loginSchema));
-        
+        const token = cookies.get('token');
+
         if(!form.valid){
             return fail(400, { form: form })
         }
@@ -43,10 +59,11 @@ export const actions: Actions = {
         const response = await fetch(BACKEND_URL + 'auth/register/professor', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
                 // TODO:
                 // assim que o encapsulamento da rota for implementado
                 // passar o token no header da requisição
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 name: name,
@@ -56,10 +73,7 @@ export const actions: Actions = {
         })
 
         if(!response.ok){
-            setFlash({ type: 'error', message: 'O CPF já está cadastrado no sistema.' }, cookies)
-            return message(form, { status: 'error', text: 'O CPF já foi cadastrado no sistema.' }, {
-                status: 409
-            })
+            return await handleError(response, cookies);
         }
 
         setFlash({ type: 'success', message: 'O professor foi cadastrado com sucesso!' }, cookies)

@@ -18,7 +18,7 @@
   <title>Login</title>
 </svelte:head>
 
-<body class="bg-slate-100 h-screen m-0">
+<body class="bg-slate-100 h-screen m-0 overflow-hidden">
   <!-- div que contém os blocos de texto-->
   <div class="flex justify-center h-screen items-center select-none">
     <div class="grid-cols-1 grid-rows-3">
@@ -64,7 +64,7 @@
             {/if}
           </div>
 
-          <div class="m-5">
+          <div class="m-5 mb-16">
             <label class="input input-bordered flex items-center gap-2">
               <input
                 name="password"

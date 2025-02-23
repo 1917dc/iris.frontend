@@ -3,6 +3,6 @@ import { loadFlash } from 'sveltekit-flash-message/server'
 
 export const load: LayoutServerLoad = loadFlash(async({ locals }) => {
     return {
-        user: locals.user
+        token: locals.token
     }
 })

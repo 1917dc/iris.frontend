@@ -17,36 +17,64 @@
         break;
     }
   }
+
+  $: currentPath = $page.url.pathname;
 </script>
 
 <svelte:head>
   <title>Coordenador</title>
 </svelte:head>
+
 <Toaster />
 <main>
   <div>
-    <div class="navbar">
+    <div class="navbar pl-10 pr-10">
       <div class="navbar-start select-none">
         <div>
           <div
-            class="h-16 w-16 rounded-md bg-primary flex items-center justify-center shadow-no-blur-sm"
+            class="h-16 w-16 rounded-md bg-primary flex items-center justify-center shadow-no-blur-sm square-button"
           >
-            <div class="font-rubik text-white text-2xl">
-              <h1 class="-mb-3">ÍR</h1>
-              <h1>IS</h1>
+            <div class="font-rubik text-white text-xl">
+              <a href="/protected/coordenador/disciplinas">
+                <h1 class="-mb-3">ÍR</h1>
+                <h1>IS</h1>
+              </a>
             </div>
           </div>
         </div>
       </div>
       <div class="navbar-center select-none">
-        <a href="coordenador/register/professor" class="">Professores</a>
+        <a href="/protected/coordenador/disciplinas"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/disciplinas' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+          Disciplinas
+        </a>
+        <a href="/protected/coordenador/professor"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+          Professores
+        </a>
+        <a href="/protected/coordenador/alunos"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/alunos' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+          Estudantes
+        </a>
+        <a href="/protected/coordenador/eletivas"
+           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/eletivas' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+          Eletivas
+        </a>
       </div>
       <div class="navbar-end select-none">
         <form action="/auth/logout">
-          <button class="btn btn-primary shadow-no-blur-sm"><LogOut /></button>
+          <button class="btn btn-primary bg-primary shadow-no-blur-sm square-button"><LogOut /></button>
         </form>
       </div>
     </div>
   </div>
   <slot />
 </main>
+
+<style>
+  .square-button {
+    width: 3.125rem;
+    height: 3.125rem;
+    padding: 0;
+  }
+</style>

@@ -1,10 +1,11 @@
 import { message, setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { z } from "zod";
-import { type Actions, fail, redirect, type RequestEvent } from "@sveltejs/kit";
+import {type Actions, type Cookies, fail, redirect, type RequestEvent} from "@sveltejs/kit";
 import { BACKEND_URL } from "$env/static/private";
-import type { User } from "$lib/types/User";
+import type { Token } from "$lib/types/Token";
 import { setFlash } from "sveltekit-flash-message/server";
+import { jwtDecode } from "jwt-decode";
 
 const loginSchema = z.object({
   cpf: z.string().refine((cpf: string) => {
@@ -36,6 +37,19 @@ export const load = async () => {
   return { form };
 };
 
+const handleError = async (response: Response, cookies: Cookies) => {
+  let errorMessage;
+
+  try {
+    const errorData = await response.json();
+    errorMessage = errorData.mensagem;
+  } catch (e) {
+    errorMessage = "Erro inesperado. Tente novamente mais tarde.";
+  }
+
+  setFlash({ type: "error", message: errorMessage }, cookies);
+};
+
 export const actions: Actions = {
   login: async ({ cookies, request }: RequestEvent) => {
     const form = await superValidate(request, zod(loginSchema));
@@ -45,6 +59,7 @@ export const actions: Actions = {
     }
 
     const { cpf, password } = form.data;
+
     const response = await fetch(BACKEND_URL + "auth/login", {
       method: "POST",
       headers: {
@@ -57,33 +72,27 @@ export const actions: Actions = {
     });
 
     if (!response.ok) {
-      // TODO:
-      // Colocar o mesmo tratamento de exceções
-      // que foi feito na página de registro dos coordenadores.
-      return setFlash({ type: "error", message: "CPF ou senha estão incorretos." }, cookies);
+      return await handleError(response, cookies);
     }
 
-    const user: User = await response.json();
+    const { token } = await response.json();
+    const user : Token = jwtDecode(token.token);
 
-    const expirationDate = new Date(user.token.expirationDate);
-    const currentDate = new Date();
-    const maxAgeInMs = expirationDate.getTime() - currentDate.getTime();
+    const expirationTime = Math.floor(user.exp - (Date.now() / 1000));
 
-    if (maxAgeInMs < 0) {
-      console.error("O token de autenticação expirou.");
-    }
-
-    cookies.set("user", JSON.stringify(user), {
+    cookies.set("token", token.token, {
       path: "/",
       httpOnly: true,
-      maxAge: maxAgeInMs / 1000,
+      maxAge: expirationTime,
       sameSite: "strict",
     });
 
-
-    if (user.typeUser === "professor")
-      return redirect(302, "/protected/professor");
-    if (user.typeUser === "coordenador")
-      return redirect(302, "/protected/coordenador");
+    if (user.role.includes("ROLE_COORDENADOR")) {
+      throw redirect(302, "/protected/coordenador/disciplinas");
+    } else if (user.role.includes("ROLE_PROFESSOR")) {
+      throw redirect(302, "/protected/professor/disciplinas");
+    } else {
+      throw redirect(302, "/protected/coordenador/disciplinas");
+    }
   },
 };

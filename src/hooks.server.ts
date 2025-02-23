@@ -1,28 +1,39 @@
+import { BACKEND_URL } from "$env/static/private";
 import {type Handle, redirect} from "@sveltejs/kit";
-import type {User} from "$lib/types/User";
+import { jwtDecode } from "jwt-decode";
 
 export const handle = (async ({ event, resolve }) => {
-    const userCookies = event.cookies.get('user');
-    let user : User | null = null;
+    const { cookies } = event
+    const cookieToken = cookies.get("token")
 
-    try{
-        if (typeof userCookies === "string") {
-            user = JSON.parse(userCookies);
+    try {
+        if(typeof cookieToken === "string"){
+
+            const response = await fetch(BACKEND_URL + 'auth/validar-token', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "token": cookieToken
+                })
+            })
+
+            
+            if(!response.ok){
+                throw redirect(308, '/')
+            }
         }
-    } catch(e){
-        console.error(`Error parsing user cookie: ${e}`)
+        
+        
+    } catch(e : any){
+        console.error(`Erro ao assimilar token: ${e.message}`)
     }
 
-    if(!user){
-        return resolve(event);
+    // TODO: Fazer o tratamento de exceção do token de usuário
+    //       e fazer uma tela personalizada de erro, que dá a opção de efetuar o login de novo. 
+
+    if (!cookieToken){
+        return resolve(event)
     }
 
-    event.locals.user = {
-        name: user.name,
-        token: user.token,
-        role: user.role
-    }
-
-
+    event.locals.token = cookieToken;
     return resolve(event);
 }) satisfies Handle;

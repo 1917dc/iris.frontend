@@ -3,20 +3,21 @@
 </script>
 
 <svelte:head>
-    <title>Cadastro - Disciplina</title>
+    <title>Cadastro - Eletiva</title>
 </svelte:head>
 <div class="justify-center">
     <div class="prose m-auto select-none">
-        <h1 class="text-center text-primary mt-20">Cadastro de Disciplina</h1>
+        <h1 class="text-center text-primary mt-20">Cadastro de Eletiva</h1>
         <form method="post" action="?/register" class="form-control">
+
             <div class="m-3">
-                <label class="label-text" for="subjectName">Nome da Disciplina</label>
+                <label class="label-text" for="electiveName">Nome</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="subjectName"
+                            name="electiveName"
                             type="text"
                             class="grow"
-                            placeholder="Matemática, Física, Português"
+                            placeholder="Introdução à Programação, Filosofia Contemporânea"
                             spellcheck="false"
                             autocomplete="off"
                     />
@@ -24,13 +25,13 @@
             </div>
 
             <div class="m-3">
-                <label class="label-text" for="professor">Professor</label>
+                <label class="label-text" for="knowledgeArea">Área do Conhecimento</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="professor"
+                            name="knowledgeArea"
                             type="text"
                             class="grow"
-                            placeholder="João Alcântara"
+                            placeholder="Ciências, Humanidades, Tecnologia"
                             spellcheck="false"
                             autocomplete="off"
                     />
@@ -38,13 +39,13 @@
             </div>
 
             <div class="m-3">
-                <label class="label-text" for="classNumber">Séria/Turma</label>
+                <label class="label-text" for="professors">Professor Responsável</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="classNumber"
+                            name="professors"
                             type="text"
                             class="grow"
-                            placeholder="3º ano"
+                            placeholder="Maria Souza"
                             spellcheck="false"
                             autocomplete="off"
                     />
@@ -52,36 +53,48 @@
             </div>
 
             <div class="m-3">
-                <label class="label-text" for="credits">Horas por semana</label>
+                <label class="label-text" for="prerequisites">Pré-requisitos</label>
+                <label class="input input-bordered flex items-center gap-2">
+                    <select name="class" class="grow">
+                        <option value="">Selecione</option>
+                        <option value="1">Matemática Básica</option>
+                        <option value="2">Física Básica</option>
+                        <option value="3">Algoritmos</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="m-3">
+                <label class="label-text" for="workload">Carga Horária</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="credits"
+                            name="workload"
                             type="number"
                             min="1"
-                            max="10"
+                            max="40"
                             class="grow"
-                            placeholder="2 horas por semana"
+                            placeholder="2 horas semanais"
                             spellcheck="false"
                     />
                 </label>
             </div>
 
             <div class="m-3">
-                <label class="label-text" for="semester">Ano letivo</label>
+                <label class="label-text" for="availableSlots">Vagas Disponíveis</label>
                 <label class="input input-bordered flex items-center gap-2">
                     <input
-                            name="semester"
-                            type="text"
+                            name="availableSlots"
+                            type="number"
+                            min="1"
                             class="grow"
-                            placeholder="2025"
+                            placeholder="30"
                             spellcheck="false"
-                            autocomplete="off"
                     />
                 </label>
             </div>
 
             <button class="btn btn-primary m-10" type="submit">
-                Registrar Disciplina
+                Registrar Eletiva
             </button>
         </form>
 
