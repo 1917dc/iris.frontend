@@ -35,4 +35,10 @@ O sistema tem como objetivo auxiliar e substituir parte do trabalho manual reali
 ## Como rodar nosso projeto
 O Backend precisará ser clonado antes, para que o usuário tenha acesso á api que alimenta o sistema; atualmente estamos desenvolvendo uma nova versão da api que está melhor estruturada do que a que usamos atualmente no projeto, ela pode ser encontrada em: https://github.com/D0ntP4nic42/iris-api \
 
-Atualmente estamos usando a api antiga, que pode ser encontrada em: https://github.com/brenoakese/iris-backend
+Atualmente estamos usando a api antiga, que pode ser encontrada em: https://github.com/brenoakese/iris-backend **(certifique-se de estar na branch `Dev2.0` antes de tentar subir o projeto)**
+
+Após colocar a api do backend dentro da pasta `/iris` (diretório base do frontend), certifique-se de ter o [docker](https://www.docker.com/products/docker-desktop/) instalado na sua máquina, e após isso coloque os seguintes comandos no terminal:
+```bash
+docker compose up --build
+```
+O projeto vai instalar todas as dependências necessárias para subir o frontend, backend e banco de dados; após esse processo tudo deve estar funcionando normalmente e o projeto pode ser testado.
