@@ -14,10 +14,17 @@ Sistema **Íris** de gerenciamento acadêmico.
 O sistema tem como objetivo auxiliar e substituir parte do trabalho manual realizado pelos servidores do **CEDLAN**, facilitando o gerenciamento de notas e de turmas das disciplinas eletivas (antes feito por uma tabela no Excel). O sistema será desenvolvido por 2 grupos divididos entre Front-end e Back-end.
 
 ## Tecnologias
+### Frontend
 - **Svelte**
 - **Tailwind**
 - **DaisyUI**
+### Versionamento
 - **Git**
+### Backend
+- **Java 21**
+- **Spring Boot**
+- **Spring Security**
+- **Swagger**
 
 ## Contribuidores
 **Luiz Gustavo**: Programação geral do front end, UI/UX e gerenciamento de requisitos (Github: https://github.com/1917dc) \
