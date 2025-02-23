@@ -20,6 +20,7 @@ O sistema tem como objetivo auxiliar e substituir parte do trabalho manual reali
 - **DaisyUI**
 ### Versionamento
 - **Git**
+- **Docker**
 ### Backend
 - **Java 21**
 - **Spring Boot**
