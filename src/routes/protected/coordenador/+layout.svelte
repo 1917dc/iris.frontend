@@ -5,19 +5,6 @@
   import toast, { Toaster } from "svelte-french-toast";
   import { LogOut } from "lucide-svelte";
 
-  const flash = initFlash(page);
-
-  $: if ($flash) {
-    switch ($flash.type) {
-      case "success":
-        toast.success($flash.message);
-        break;
-      case "error":
-        toast.error($flash.message);
-        break;
-    }
-  }
-
   $: currentPath = $page.url.pathname;
 </script>
 
@@ -44,26 +31,49 @@
         </div>
       </div>
       <div class="navbar-center select-none">
-        <a href="/protected/coordenador/disciplinas"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/disciplinas' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+        <a
+          href="/protected/coordenador/disciplinas"
+          class="m-0.5 text-base btn {currentPath ===
+          '/protected/coordenador/disciplinas'
+            ? 'btn-primary bg-primary'
+            : 'btn-ghost'}"
+        >
           Disciplinas
         </a>
-        <a href="/protected/coordenador/professor"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/professor' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+        <a
+          href="/protected/coordenador/professor"
+          class="m-0.5 text-base btn {currentPath ===
+          '/protected/coordenador/professor'
+            ? 'btn-primary bg-primary'
+            : 'btn-ghost'}"
+        >
           Professores
         </a>
-        <a href="/protected/coordenador/alunos"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/alunos' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+        <a
+          href="/protected/coordenador/alunos"
+          class="m-0.5 text-base btn {currentPath ===
+          '/protected/coordenador/alunos'
+            ? 'btn-primary bg-primary'
+            : 'btn-ghost'}"
+        >
           Estudantes
         </a>
-        <a href="/protected/coordenador/eletivas"
-           class="m-0.5 text-base btn {currentPath === '/protected/coordenador/eletivas' ? 'btn-primary bg-primary' : 'btn-ghost'}">
+        <a
+          href="/protected/coordenador/eletivas"
+          class="m-0.5 text-base btn {currentPath ===
+          '/protected/coordenador/eletivas'
+            ? 'btn-primary bg-primary'
+            : 'btn-ghost'}"
+        >
           Eletivas
         </a>
       </div>
       <div class="navbar-end select-none">
         <form action="/auth/logout">
-          <button class="btn btn-primary bg-primary shadow-no-blur-sm square-button"><LogOut /></button>
+          <button
+            class="btn btn-primary bg-primary shadow-no-blur-sm square-button"
+            ><LogOut /></button
+          >
         </form>
       </div>
     </div>

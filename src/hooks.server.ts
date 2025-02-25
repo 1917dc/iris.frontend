@@ -1,6 +1,5 @@
 import { BACKEND_URL } from "$env/static/private";
 import {type Handle, redirect} from "@sveltejs/kit";
-import { jwtDecode } from "jwt-decode";
 
 export const handle = (async ({ event, resolve }) => {
     const { cookies } = event

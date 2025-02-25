@@ -1,14 +1,12 @@
 import type { PageServerLoad } from './$types';
-import { superValidate} from 'sveltekit-superforms'
+import { superValidate } from 'sveltekit-superforms'
 import { zod } from 'sveltekit-superforms/adapters'
 import { z } from 'zod';
 import {type Actions, type Cookies, fail} from "@sveltejs/kit";
 import { BACKEND_URL } from '$env/static/private';
 import {setFlash} from "sveltekit-flash-message/server";
-import { jwtDecode } from 'jwt-decode';
-import type { Token } from '$lib/types/Token.ts';
 
-const loginSchema = z.object({
+const registerSchema = z.object({
     cpf: z.string()
         .refine((cpf: string) => {
             if (typeof cpf !== "string") return false;
@@ -28,7 +26,7 @@ const loginSchema = z.object({
 
 export const load = (async () => {
 
-    const form = await superValidate(zod(loginSchema));
+    const form = await superValidate(zod(registerSchema));
     return { form };
 }) satisfies PageServerLoad;
 
@@ -46,8 +44,9 @@ const handleError = async (response: Response, cookies: Cookies) => {
 };
 
 export const actions: Actions = {
-    register: async ({ request, cookies }) => {
-        const form = await superValidate(request, zod(loginSchema));
+    post: async ({ request, cookies }) => {
+        console.log("a")
+        const form = await superValidate(request, zod(registerSchema));
         const token = cookies.get('token');
 
         if(!form.valid){
