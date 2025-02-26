@@ -1,8 +1,7 @@
 <script>
   import "tailwindcss/tailwind.css";
   import { page } from "$app/stores";
-  import { initFlash } from "sveltekit-flash-message";
-  import toast, { Toaster } from "svelte-french-toast";
+  import { Toaster } from "svelte-french-toast";
   import { LogOut } from "lucide-svelte";
 
   $: currentPath = $page.url.pathname;
