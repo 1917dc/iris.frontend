@@ -3,8 +3,6 @@
   import { superForm } from "sveltekit-superforms";
   import { imask } from "@imask/svelte";
 
-  // TODO: Adicionar campo de email na área de registro de professor
-
   export let data: PageData;
 
   const { form, errors, enhance } = superForm(data.form, {

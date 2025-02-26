@@ -67,7 +67,7 @@ export const actions: Actions = {
       },
       body: JSON.stringify({
         cpf: cpf,
-        password: password,
+        senha: password,
       }),
     });
 
@@ -75,9 +75,8 @@ export const actions: Actions = {
       return await handleError(response, cookies);
     }
 
-    const { token } = await response.json();
+    const token = await response.json();
     const user : Token = jwtDecode(token.token);
-
     const expirationTime = Math.floor(user.exp - (Date.now() / 1000));
 
     cookies.set("token", token.token, {

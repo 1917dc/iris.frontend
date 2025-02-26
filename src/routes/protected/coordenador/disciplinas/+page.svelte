@@ -1,11 +1,8 @@
 <script lang="ts">
-  import { jwtDecode } from "jwt-decode";
   import { Search, Plus } from "lucide-svelte";
-  import type { Token } from "$lib/types/Token.ts";
   import { fade } from "svelte/transition";
 
   export let data;
-  const user: Token = jwtDecode(data.token);
 
   const disciplines = [
     { name: "Português", professor: "Professor A", className: "Turma A" },
@@ -48,7 +45,7 @@
       </h1>
       <a href="/protected/coordenador/register/disciplina">
         <button class="btn bg-white text-xl m-0 absolute bottom-5 left-5"
-        ><Plus /></button
+          ><Plus /></button
         >
       </a>
     </div>
@@ -100,7 +97,9 @@
   }
 
   #card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   #card:hover {

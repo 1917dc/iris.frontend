@@ -5,8 +5,6 @@
   import { User } from "lucide-svelte";
   import { Lock } from "lucide-svelte";
 
-  // TODO: Reorganizar rotas do app
-
   export let data: PageData;
   const { form, errors, enhance } = superForm(data.form);
 

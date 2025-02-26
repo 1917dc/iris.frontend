@@ -1,7 +1,7 @@
 <script>
   import "tailwindcss/tailwind.css";
   import { page } from "$app/stores";
-  import { getFlash, initFlash } from "sveltekit-flash-message";
+  import { initFlash } from "sveltekit-flash-message";
   import toast, { Toaster } from "svelte-french-toast";
 
   const flash = initFlash(page);

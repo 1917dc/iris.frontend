@@ -1,6 +1,5 @@
 export interface Token {
-  nome: string;
-  issuer: string;
+  iss: string;
   role: string;
   sub: string;
   exp: number;
