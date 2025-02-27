@@ -1,4 +1,4 @@
-import { message, setError, superValidate } from "sveltekit-superforms";
+import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { z } from "zod";
 import {type Actions, type Cookies, fail, redirect, type RequestEvent} from "@sveltejs/kit";
@@ -72,9 +72,11 @@ export const actions: Actions = {
     });
 
     if (!response.ok) {
+      console.log(response);
       return await handleError(response, cookies);
     }
 
+    
     const token = await response.json();
     const user : Token = jwtDecode(token.token);
     const expirationTime = Math.floor(user.exp - (Date.now() / 1000));
