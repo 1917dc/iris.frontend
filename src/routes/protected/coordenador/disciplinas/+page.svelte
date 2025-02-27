@@ -1,32 +1,9 @@
 <script lang="ts">
-  import { Search, Plus } from "lucide-svelte";
+  import { Search, Plus, User } from "lucide-svelte";
   import { fade } from "svelte/transition";
-  import { jwtDecode } from "jwt-decode";
-  import type { Token } from "$lib/types/Token.js";
-  import { BACKEND_URL } from "$env/static/private";
+  import type { PageData } from "./$types";
 
-  export let data;
-
-  const token = data.token;
-  console.log(data.token);
-  console.log(token);
-  const tokenData: Token = jwtDecode(token);
-
-  const getUserInfo = async () => {
-    const response = await fetch(
-      `${BACKEND_URL}/professores/${tokenData.sub}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-  };
-
-  const userData = getUserInfo;
-  console.log(userData);
+  export let data: PageData;
 
   const disciplines = [
     { name: "Português", professor: "Professor A", className: "Turma A" },
@@ -49,11 +26,11 @@
     <div class="text-white">
       <div class="inline">
         <h1 class="text-4xl font-medium">
-          Bem-vindo(a) de volta, <span class="font-black">{tokenData.nome}</span
+          Bem-vindo(a) de volta, <span class="font-black">{data.user.nome}</span
           >
         </h1>
         <h2 class="mt-3">
-          Login feito como <span class="font-bold">{tokenData.role}</span>
+          Login feito como <span class="font-bold">{data.user.role}</span>
         </h2>
       </div>
     </div>
