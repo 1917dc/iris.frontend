@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { Search, Plus, User } from "lucide-svelte";
+  import { Search, Plus } from "lucide-svelte";
   import { fade } from "svelte/transition";
   import type { PageData } from "./$types";
 
   export let data: PageData;
+
+  console.log(data);
 
   const disciplines = [
     { name: "Português", professor: "Professor A", className: "Turma A" },

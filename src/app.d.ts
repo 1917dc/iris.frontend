@@ -6,7 +6,8 @@ declare global {
 	namespace App {
 		interface Error {}
 		interface Locals {
-			token: string; 
+			token?: string; 
+			user?: User;
 		}
 		interface PageData {
 			flash?: { type: 'success' | 'error' | 'warning'; message: string };
