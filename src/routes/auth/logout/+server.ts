@@ -1,11 +1,13 @@
 import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async ({ cookies }) => {
+export const POST: RequestHandler = async ({ cookies }) => {
     cookies.set('token', '', {
         path: '/',
-        expires: new Date(0)
+        expires: new Date(0),
+        httpOnly: true,
+        sameSite: 'strict'
     })
 
-    return redirect(308, '/');
+    return redirect(303, '/auth/login');
 };
