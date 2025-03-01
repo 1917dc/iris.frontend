@@ -7,6 +7,7 @@ import { loadFlash } from 'sveltekit-flash-message/server'
  * Rotas +page.server.ts só rodam especificamente nas rotas
  * nas quais elas são colocadas. Para fazer uma lógica server-side
  * que incluem todas as rotas filhas em questão 
+ * 
  */
 
 export const load: LayoutServerLoad = loadFlash(async({ locals }) => {
