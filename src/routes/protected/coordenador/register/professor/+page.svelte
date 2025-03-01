@@ -4,6 +4,7 @@
   import { imask } from "@imask/svelte";
 
   export let data: PageData;
+
   const { form, errors, enhance } = superForm(data.form, {
     resetForm: true,
 
@@ -49,7 +50,7 @@
 
   $: if (showModal) {
     const dialog = document.getElementById(
-      "modal_confirm",
+      "modal_confirm"
     ) as HTMLDialogElement;
     dialog.showModal();
   }
@@ -65,7 +66,7 @@
 <div class="justify-center">
   <div class="prose m-auto select-none">
     <h1 class="text-center text-primary mt-20">Cadastro de Professor</h1>
-    <form method="post" action="?/register" class="form-control" use:enhance>
+    <form method="post" action="?/post" class="form-control" use:enhance>
       <div class="m-3">
         <label class="label-text" for="cpf">CPF</label>
         <label class="input input-bordered flex items-center gap-2">
