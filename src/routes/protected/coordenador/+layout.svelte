@@ -68,7 +68,7 @@
         </a>
       </div>
       <div class="navbar-end select-none">
-        <form action="/auth/logout">
+        <form action="/auth/logout" method="POST">
           <button
             class="btn btn-primary bg-primary shadow-no-blur-sm square-button"
             ><LogOut /></button
