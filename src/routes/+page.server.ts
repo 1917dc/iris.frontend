@@ -1,38 +1,26 @@
 import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { z } from "zod";
-import {type Actions, type Cookies, fail, redirect, type RequestEvent} from "@sveltejs/kit";
+import {type Actions, type Cookies,redirect, type RequestEvent} from "@sveltejs/kit";
 import { BACKEND_URL } from "$env/static/private";
 import type { Token } from "$lib/types/Token";
 import { setFlash } from "sveltekit-flash-message/server";
 import { jwtDecode } from "jwt-decode";
+import { SchemaCpf } from "$lib/schemas/SchemaCpf";
+
+/**
+ * Usando "Zod Schemas" para validação client side
+ * de dados no front-end.
+ * 
+ * Documentação: https://zod.dev/
+ */
 
 const loginSchema = z.object({
-  cpf: z.string().refine((cpf: string) => {
-    if (typeof cpf !== "string") return false;
-    cpf = cpf.replace(/[^\d]+/g, "");
-    if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false;
-    const cpfDigits = cpf.split("").map((el) => +el);
-    const rest = (count: number): number => {
-      return (
-        ((cpfDigits
-          .slice(0, count - 12)
-          .reduce((soma, el, index) => soma + el * (count - index), 0) *
-          10) %
-          11) %
-        10
-      );
-    };
-    return rest(10) === cpfDigits[9] && rest(11) === cpfDigits[10];
-  }, "Digite um CPF válido."),
-
+  cpf: SchemaCpf,
   password: z.string(),
 });
 
 export const load = async () => {
-  // TODO:
-  // AQUI DEVEMOS COLOCAR A CHAMADA DA API DO BACKEND,
-
   const form = await superValidate(zod(loginSchema));
   return { form };
 };
@@ -77,23 +65,21 @@ export const actions: Actions = {
     }
 
     
-    const token = await response.json();
-    const user : Token = jwtDecode(token.token);
-    const expirationTime = Math.floor(user.exp - (Date.now() / 1000));
+    const rawToken = await response.json();
+    const token: Token = jwtDecode(rawToken.token);
+    const expirationTime = Math.floor(token.exp - (Date.now() / 1000));
 
-    cookies.set("token", token.token, {
+    cookies.set("token", rawToken.token, {
       path: "/",
       httpOnly: true,
       maxAge: expirationTime,
       sameSite: "strict",
     });
 
-    if (user.role.includes("ROLE_COORDENADOR")) {
+    if (token.role.includes("COORDENADOR")) {
       throw redirect(302, "/protected/coordenador/disciplinas");
-    } else if (user.role.includes("ROLE_PROFESSOR")) {
+    } else if (token.role.includes("PROFESSOR")) {
       throw redirect(302, "/protected/professor/disciplinas");
-    } else {
-      throw redirect(302, "/protected/coordenador/disciplinas");
-    }
+    } 
   },
 };

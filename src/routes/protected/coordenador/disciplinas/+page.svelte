@@ -5,8 +5,6 @@
 
   export let data: PageData;
 
-  console.log(data);
-
   const disciplines = [
     { name: "Português", professor: "Professor A", className: "Turma A" },
     { name: "Matemática", professor: "Professor B", className: "Turma B" },

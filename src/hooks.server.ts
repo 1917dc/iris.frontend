@@ -3,9 +3,18 @@ import { type Handle } from "@sveltejs/kit";
 import type { Token } from "$lib/types/Token";
 import { jwtDecode } from "jwt-decode";
 
-// TODO: Fazer o tratamento de exceção do token de usuário
-//       e fazer uma tela personalizada de erro, que dá a opção de efetuar o login de novo. 
-
+/**
+ * @classdesc - hooks.server.ts
+ * Classe que executa a cada refresh de página
+ * é ideal colocar chamadas de autenticação de usuário
+ * aqui dentro, pois assim teremos noção em 100% do tempo
+ * se o usuário deve ou não estar tendo acesso á aplicação.
+ * 
+ * Basicamente um middleware, recomendo pesquisar mais
+ * a fundo caso ainda existam dúvidas.
+ * 
+ * @type { event } representa o contexto do server-side da aplicação
+ */
 export const handle = (async ({ event, resolve }) => {
     const { cookies } = event
     const rawToken = cookies.get("token")
@@ -29,7 +38,6 @@ export const handle = (async ({ event, resolve }) => {
 
     if(!response.ok){
         console.error(`Erro ao puxar dados do usuário: ${response.status}`)
-        event.locals.user = null;
         return resolve(event);
     }
     event.locals.user = await response.json();
