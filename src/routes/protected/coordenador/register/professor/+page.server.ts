@@ -35,10 +35,10 @@ const handleError = async (response: Response, cookies: Cookies) => {
 };
 
 export const actions: Actions = {
-    post: async ({ request, cookies }) => {
-        console.log("a")
+    post: async ({ request, cookies, locals }) => {
         const form = await superValidate(request, zod(registerSchema));
-        const token = cookies.get('token');
+
+        console.log(locals.token)
 
         if(!form.valid){
             return fail(400, { form: form })
@@ -46,19 +46,16 @@ export const actions: Actions = {
 
         const { cpf, password, name } = form.data;
 
-        const response = await fetch(BACKEND_URL + 'auth/register/professor', {
+        const response = await fetch(`${BACKEND_URL}/professores/registrar`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
-                // TODO:
-                // assim que o encapsulamento da rota for implementado
-                // passar o token no header da requisição
-                "Authorization": `Bearer ${token}`
+                'Authorization': `Bearer ${locals.token}`
             },
             body: JSON.stringify({
-                name: name,
+                nome: name,
                 cpf: cpf,
-                password: password,
+                senha: password
             })
         })
 

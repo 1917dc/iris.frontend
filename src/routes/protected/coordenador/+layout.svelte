@@ -1,20 +1,13 @@
 <script>
   import "tailwindcss/tailwind.css";
-  import { page } from "$app/stores";
-  import { Toaster } from "svelte-french-toast";
-  import { LogOut } from "lucide-svelte";
-
-  $: currentPath = $page.url.pathname;
 </script>
 
 <svelte:head>
   <title>Coordenador</title>
 </svelte:head>
-
-<Toaster />
 <main>
   <div>
-    <div class="navbar pl-10 pr-10">
+    <!-- <div class="navbar pl-10 pr-10">
       <div class="navbar-start select-none">
         <div>
           <div
@@ -75,7 +68,7 @@
           >
         </form>
       </div>
-    </div>
+    </div> -->
   </div>
   <slot />
 </main>
