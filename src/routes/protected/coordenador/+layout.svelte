@@ -1,5 +1,7 @@
 <script>
   import "tailwindcss/tailwind.css";
+  import { AlignJustify, ChevronRight } from "lucide-svelte";
+  import { page } from "$app/stores";
 </script>
 
 <svelte:head>
@@ -7,14 +9,48 @@
 </svelte:head>
 <main>
   <div>
-    <!-- <div class="navbar pl-10 pr-10">
-      <div class="navbar-start select-none">
+    <div class="navbar bg-base-100">
+      <div class="flex-none">
+        <div class="drawer mr-2">
+          <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+          <div class="drawer-content">
+            <!-- Page content here -->
+            <label for="my-drawer" class="btn btn-ghost w-16 h-14 drawer-button"
+              ><AlignJustify /></label
+            >
+          </div>
+          <div class="drawer-side">
+            <label
+              for="my-drawer"
+              aria-label="close sidebar"
+              class="drawer-overlay"
+            ></label>
+            <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+              <!-- Sidebar content here -->
+              <li>
+                <a
+                  href="/protected/coordenador/register/professor"
+                  class="flex justify-between {$page.url.pathname ===
+                  '/protected/coordenador/register/professor'
+                    ? 'bg-primary text-white'
+                    : 'bg-base-200 text-black'} hover:text-black hover:bg-base"
+                >
+                  Registrar professor
+
+                  <ChevronRight />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1">
         <div>
           <div
             class="h-16 w-16 rounded-md bg-primary flex items-center justify-center shadow-no-blur-sm square-button"
           >
             <div class="font-rubik text-white text-xl">
-              <a href="/protected/coordenador/disciplinas">
+              <a href="/protected/coordenador/">
                 <h1 class="-mb-3">ÍR</h1>
                 <h1>IS</h1>
               </a>
@@ -22,55 +58,9 @@
           </div>
         </div>
       </div>
-      <div class="navbar-center select-none">
-        <a
-          href="/protected/coordenador/disciplinas"
-          class="m-0.5 text-base btn {currentPath ===
-          '/protected/coordenador/disciplinas'
-            ? 'btn-primary bg-primary'
-            : 'btn-ghost'}"
-        >
-          Disciplinas
-        </a>
-        <a
-          href="/protected/coordenador/professor"
-          class="m-0.5 text-base btn {currentPath ===
-          '/protected/coordenador/professor'
-            ? 'btn-primary bg-primary'
-            : 'btn-ghost'}"
-        >
-          Professores
-        </a>
-        <a
-          href="/protected/coordenador/alunos"
-          class="m-0.5 text-base btn {currentPath ===
-          '/protected/coordenador/alunos'
-            ? 'btn-primary bg-primary'
-            : 'btn-ghost'}"
-        >
-          Estudantes
-        </a>
-        <a
-          href="/protected/coordenador/eletivas"
-          class="m-0.5 text-base btn {currentPath ===
-          '/protected/coordenador/eletivas'
-            ? 'btn-primary bg-primary'
-            : 'btn-ghost'}"
-        >
-          Eletivas
-        </a>
-      </div>
-      <div class="navbar-end select-none">
-        <form action="/auth/logout" method="POST">
-          <button
-            class="btn btn-primary bg-primary shadow-no-blur-sm square-button"
-            ><LogOut /></button
-          >
-        </form>
-      </div>
-    </div> -->
+    </div>
+    <slot />
   </div>
-  <slot />
 </main>
 
 <style>
