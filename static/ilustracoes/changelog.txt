@@ -1,0 +1,13 @@
+# Changelog
+Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
+
+## [Released]
+
+## [1.0.0] - 23/04/2021
+
+### Adicionado
+- Tema Personagens (yuri, lina, luciona, julia, ester, jose, carlos, beto)
+- Tema Fundo-geométricos
+- Tema Objetos
+- Tema Erro
+- Tema Empty-space

@@ -15,7 +15,7 @@
           <input id="my-drawer" type="checkbox" class="drawer-toggle" />
           <div class="drawer-content">
             <!-- Page content here -->
-            <label for="my-drawer" class="btn btn-ghost w-16 h-14 drawer-button"
+            <label for="my-drawer" class="btn btn-ghost w-14 h-14 drawer-button"
               ><AlignJustify /></label
             >
           </div>
@@ -33,7 +33,7 @@
                   class="flex justify-between {$page.url.pathname ===
                   '/protected/coordenador/register/professor'
                     ? 'bg-primary text-white'
-                    : 'bg-base-200 text-black'} hover:text-black hover:bg-base"
+                    : 'bg-base-200 text-black'} hover:text-black"
                 >
                   Registrar professor
 
