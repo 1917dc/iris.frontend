@@ -11,7 +11,7 @@
   {#if page.status === 500}
     <div class="text-center max-w-md px-4">
       <img src={imgPath + "error08.png"} />
-      <h1 class="text-primary text-9xl font-bold">{page.status}</h1>
+      <h1 class="text-primary text-5xl font-bold">{page.status}</h1>
     </div>
   {/if}
 </div>
