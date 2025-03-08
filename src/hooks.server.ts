@@ -17,21 +17,21 @@ import { jwtDecode } from "jwt-decode";
  */
 export const handle = (async ({ event, resolve }) => {
     const { cookies } = event
-    const rawToken = cookies.get("token")
-    if (!rawToken || typeof rawToken !== "string"){
+    const token = cookies.get("token")
+    if (!token || typeof token !== "string"){
         console.error("Token inválido ou não identificado")
         return resolve(event);
     }
-    event.locals.token = rawToken;
+    event.locals.token = token;
 
-    const token: Token = jwtDecode(rawToken);
+    const tokenData: Token = jwtDecode(token);
     const response = await fetch(
-        `${BACKEND_URL}/professores/${token.sub}`,
+        `${BACKEND_URL}/professores/${tokenData.sub}`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${rawToken}`,
+            "Authorization": `Bearer ${token}`,
           },
         }
       );
