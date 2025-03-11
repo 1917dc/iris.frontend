@@ -62,7 +62,7 @@
 </script>
 
 <svelte:head>
-  <title>Cadastro - Professor</title>
+  <title>Coordenador | Cadastro de Professor</title>
 </svelte:head>
 <div class="justify-center">
   <div class="prose m-auto select-none">

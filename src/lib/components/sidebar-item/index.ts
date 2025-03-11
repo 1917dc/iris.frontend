@@ -1,0 +1,1 @@
+export { default as SidebarItem } from './sidebar-item.svelte'

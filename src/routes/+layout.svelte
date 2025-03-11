@@ -18,9 +18,7 @@
   }
 </script>
 
-<svelte:head>
-  <title>Íris</title>
-</svelte:head>
+<svelte:head></svelte:head>
 
 <Toaster />
 <main>
