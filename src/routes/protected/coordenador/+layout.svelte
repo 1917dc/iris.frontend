@@ -1,6 +1,6 @@
 <script lang="ts">
   import "tailwindcss/tailwind.css";
-  import { LogOut, UsersRound, BookCopy } from "lucide-svelte";
+  import { LogOut, UserRoundPlus, BookCopy, UserRoundX } from "lucide-svelte";
   import { Sidebar, SidebarItem } from "$lib/components/sidebar";
   import { HomeButton } from "$lib/components/home-button";
 </script>
@@ -14,9 +14,13 @@
     <div class="navbar bg-base-100">
       <div class="navbar-start">
         <Sidebar>
-          <SidebarItem urlPath={"/protected/coordenador/register/professor"}>
-            <svelte:fragment slot="icon"><UsersRound /></svelte:fragment>
-            <svelte:fragment slot="title">Professor</svelte:fragment>
+          <SidebarItem urlPath={"/protected/coordenador/registrar/professor"}>
+            <svelte:fragment slot="icon"><UserRoundPlus /></svelte:fragment>
+            <svelte:fragment slot="title">Professor - Registrar</svelte:fragment>
+          </SidebarItem>
+          <SidebarItem urlPath={"/protected/coordenador/remover/professor"}>
+            <svelte:fragment slot="icon"><UserRoundX /></svelte:fragment>
+            <svelte:fragment slot="title">Professor - Remover</svelte:fragment>
           </SidebarItem>
           <SidebarItem urlPath={"/protected/coordenador/disciplinas"}>
             <svelte:fragment slot="icon"><BookCopy /></svelte:fragment>
