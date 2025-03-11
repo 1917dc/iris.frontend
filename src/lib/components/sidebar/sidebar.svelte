@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { AlignJustify, Github } from "lucide-svelte";
+  import { AlignJustify, BookText } from "lucide-svelte";
 </script>
 
 <div class="drawer">
@@ -19,15 +19,14 @@
       <slot />
       <div class="mt-auto">
         <div class="flex justify-center">
-          <div class="flex items-center">
-            <p>© 2024 Projeto Íris</p>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-link"
-              href="https://github.com/1917dc/iris"><Github></Github></a
-            >
-          </div>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-link"
+            href="https://1917dc.github.io/iris"
+            ><p>© 2024 Projeto Íris</p>
+            <BookText /></a
+          >
         </div>
       </div>
     </ul>

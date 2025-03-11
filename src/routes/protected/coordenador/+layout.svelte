@@ -8,16 +8,17 @@
 <svelte:head>
   <title>Coordenador</title>
 </svelte:head>
+
 <main>
   <div>
     <div class="navbar bg-base-100">
       <div class="navbar-start">
         <Sidebar>
-          <SidebarItem>
+          <SidebarItem urlPath={"/protected/coordenador/register/professor"}>
             <svelte:fragment slot="icon"><UsersRound /></svelte:fragment>
             <svelte:fragment slot="title">Professor</svelte:fragment>
           </SidebarItem>
-          <SidebarItem>
+          <SidebarItem urlPath={"/protected/coordenador/disciplinas"}>
             <svelte:fragment slot="icon"><BookCopy /></svelte:fragment>
             <svelte:fragment slot="title">Disciplinas</svelte:fragment>
           </SidebarItem>
@@ -39,11 +40,3 @@
     <slot />
   </div>
 </main>
-
-<style>
-  .square-button {
-    width: 3.125rem;
-    height: 3.125rem;
-    padding: 0;
-  }
-</style>
