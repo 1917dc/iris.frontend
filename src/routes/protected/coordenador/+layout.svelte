@@ -2,7 +2,7 @@
   import "tailwindcss/tailwind.css";
   import { LogOut, UsersRound, BookCopy } from "lucide-svelte";
   import { Sidebar, SidebarItem } from "$lib/components/sidebar";
-  import { Icon } from "$lib/components/Icon";
+  import { HomeButton } from "$lib/components/home-button";
 </script>
 
 <svelte:head>
@@ -25,7 +25,7 @@
         </Sidebar>
       </div>
       <div class="navbar-center">
-        <Icon urlPath="/protected/coordenador" />
+        <HomeButton urlPath="/protected/coordenador" />
       </div>
       <div class="navbar-end">
         <form action="/auth/logout" method="POST">
