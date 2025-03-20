@@ -8,6 +8,7 @@ import { superValidate } from 'sveltekit-superforms';
 import { BACKEND_URL } from '$env/static/private';
 import { setFlash } from 'sveltekit-flash-message/server';
 import type { Cookies } from '@sveltejs/kit';
+import type { Professor } from '$lib/types/Professor';
 
 const searchSchema = z.object({
     cpf: SchemaCpf
@@ -26,20 +27,34 @@ const handleError = async (response: Response, cookies: Cookies) => {
     setFlash({ type: "error", message: errorMessage }, cookies);
   };
 
-export const load = (async () => {
+export const load = (async ({ cookies, locals }) => {
     const form = await superValidate(zod(searchSchema))
 
-    return { form };
+    const response = await fetch(`${BACKEND_URL}/coordenador/professores`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${locals.token}`
+        }
+    })
+
+    if(!response.ok){
+        console.error(response.status);
+        handleError(response, cookies);
+    }
+    const professores: Professor[] = await response.json();
+
+    return { form, professores };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-    post: async({ cookies, request, locals }: RequestEvent) => {
-        const form = await superValidate(request, zod(searchSchema))
+    delete: async({ cookies, request, locals }: RequestEvent) => {
 
-        const { cpf } = form.data;
+        const data = await request.formData();
+        const cpf = data.get("cpf");
 
-        const response = await fetch(`${BACKEND_URL}/professores/${cpf}`, {
-            method: "GET",
+        const response = await fetch(`${BACKEND_URL}/coordenador/deletar-professor/${cpf}`, {
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${locals.token}`
@@ -51,7 +66,7 @@ export const actions: Actions = {
             return await handleError(response, cookies);
         }
 
-        const professor = await response.json();
-        console.log(professor)
+        setFlash({ type: 'success', message: 'O professor foi deletado com sucesso!' }, cookies)
+        console.log("Professor deletado com sucesso.")
     }
 }

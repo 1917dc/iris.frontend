@@ -1,41 +1,72 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
+  import type { Professor } from "$lib/types/Professor";
   import type { PageData } from "./$types";
   import { imask } from "@imask/svelte";
   import SuperDebug, { superForm } from "sveltekit-superforms";
 
   export let data: PageData;
-  const { form, errors, enhance } = superForm(data.form);
+  const { professores } = data;
+  const { form, errors } = superForm(data.form);
 
-  const options = {
-    mask: "000{.}000{.}000{-}00",
-    lazy: true,
+  let modal: HTMLDialogElement | null = null;
+  let selectedProfessor: Professor | null = null;
+
+  const openModal = (professor: Professor) => {
+    selectedProfessor = professor;
+    modal?.showModal();
+  };
+
+  const closeModal = () => {
+    modal?.close();
+    selectedProfessor = null;
   };
 </script>
 
 <main>
-  <div class="flex justify-center items-center min-h-[calc(100vh-6rem)]">
-    <form class="form-control" action="?/post" method="POST">
-      <label class="w-full max-w-xs">
-        <div class="label">
-          <span class="label-text">Qual CPF deseja remover?</span>
+  <div class="flex items-center justify-center">
+    <ul class="w-1/2">
+      {#each professores as professor}
+        <div class="bg-gray-200 mt-4 mb-4 pl-4 pr-4 rounded-md">
+          <li class="flex justify-between pt-4 pb-4 select-none">
+            <div class="inline">
+              <p>
+                <span class="font-bold text-primary">Nome:</span>
+                {professor.nome}
+              </p>
+              <p>
+                <span class="font-bold text-primary">CPF: </span>{professor.cpf}
+              </p>
+            </div>
+            <button
+              class="btn btn-primary"
+              on:click={() => openModal(professor)}
+            >
+              Remover
+            </button>
+          </li>
         </div>
-        <input
-          name="cpf"
-          type="text"
-          placeholder="000.000.000-00"
-          spellcheck="false"
-          autocomplete="off"
-          maxlength={14}
-          bind:value={$form.cpf}
-          use:imask={options}
-          class="grow input input-bordered w-full max-w-xs"
-        />
-        <div class="label"></div>
-      </label>
-      {#if $errors.cpf}
-        <p class="text-error text-sm">{$errors.cpf}</p>
-      {/if}
-      <button class="btn btn-wide btn-primary" type="submit">Buscar</button>
-    </form>
+      {/each}
+    </ul>
   </div>
+
+  <dialog bind:this={modal} class="modal">
+    <div class="modal-box">
+      <h3 class="text-lg font-bold">Aviso!</h3>
+      <p class="py-4">
+        Você tem certeza que deseja mesmo apagar o professor <strong
+          >{selectedProfessor?.nome}</strong
+        > do banco de dados?
+      </p>
+      <div class="modal-action">
+        <form method="POST" action="?/delete">
+          <input type="hidden" name="cpf" value={selectedProfessor?.cpf} />
+          <button type="button" class="btn btn-success" on:click={closeModal}>
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-error"> Confirmar </button>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </main>

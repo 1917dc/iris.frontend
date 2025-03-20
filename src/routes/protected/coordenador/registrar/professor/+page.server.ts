@@ -9,7 +9,7 @@ import { SchemaCpf } from "$lib/schemas/SchemaCpf";
 
 const registerSchema = z.object({
     cpf: SchemaCpf,
-    password: z.string().min(8, { message: "A senha deve conter ao menos 8 caracteres" }),
+    password: z.string().min(4, { message: "A senha deve conter ao menos 8 caracteres" }),
     confirm: z.string(),
     name: z.string().min(2, { message: "Campo obrigatório." }),
 })
@@ -38,15 +38,13 @@ export const actions: Actions = {
     post: async ({ request, cookies, locals }) => {
         const form = await superValidate(request, zod(registerSchema));
 
-        console.log(locals.token)
-
         if(!form.valid){
             return fail(400, { form: form })
         }
 
         const { cpf, password, name } = form.data;
 
-        const response = await fetch(`${BACKEND_URL}/professores/registrar`, {
+        const response = await fetch(`${BACKEND_URL}/coordenador/registrar-professor`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
