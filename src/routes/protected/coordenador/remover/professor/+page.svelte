@@ -54,17 +54,15 @@
     <div class="modal-box">
       <h3 class="text-lg font-bold">Aviso!</h3>
       <p class="py-4">
-        Você tem certeza que deseja mesmo apagar o professor <strong
-          >{selectedProfessor?.nome}</strong
-        > do banco de dados?
+        Você tem certeza que deseja mesmo apagar o professor <br/><span class="font-bold">{selectedProfessor?.nome}</span> do sistema?
       </p>
       <div class="modal-action">
         <form method="POST" action="?/delete">
           <input type="hidden" name="cpf" value={selectedProfessor?.cpf} />
-          <button type="button" class="btn btn-success" on:click={closeModal}>
+          <button type="submit" class="btn btn-success"> Confirmar </button>
+          <button type="button" class="btn btn-error" on:click={closeModal}>
             Cancelar
           </button>
-          <button type="submit" class="btn btn-error"> Confirmar </button>
         </form>
       </div>
     </div>

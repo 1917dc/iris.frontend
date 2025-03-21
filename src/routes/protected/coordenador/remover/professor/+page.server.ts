@@ -40,7 +40,7 @@ export const load = (async ({ cookies, locals }) => {
 
     if(!response.ok){
         console.error(response.status);
-        handleError(response, cookies);
+        return await handleError(response, cookies);
     }
     const professores: Professor[] = await response.json();
 
