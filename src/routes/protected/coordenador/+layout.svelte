@@ -3,6 +3,8 @@
   import { LogOut, UserRoundPlus, BookCopy, UserRoundX } from "lucide-svelte";
   import { Sidebar, SidebarItem } from "$lib/components/sidebar";
   import { HomeButton } from "$lib/components/home-button";
+
+  const coordenador = "/protected/coordenador";
 </script>
 
 <svelte:head>
@@ -15,15 +17,16 @@
       <div class="navbar-start">
         <Sidebar>
           <SidebarItem urlPath={"/protected/coordenador/registrar/professor"}>
-            <svelte:fragment slot="icon"><UserRoundPlus /></svelte:fragment>
-            <svelte:fragment slot="title">Professor - Registrar</svelte:fragment>
+            <svelte:fragment slot="title">Professor - Registrar</svelte:fragment
+            >
           </SidebarItem>
           <SidebarItem urlPath={"/protected/coordenador/remover/professor"}>
-            <svelte:fragment slot="icon"><UserRoundX /></svelte:fragment>
             <svelte:fragment slot="title">Professor - Remover</svelte:fragment>
           </SidebarItem>
+          <SidebarItem urlPath={"/protected/coordenador/editar/professor"}>
+            <svelte:fragment slot="title">Professor - Editar</svelte:fragment>
+          </SidebarItem>
           <SidebarItem urlPath={"/protected/coordenador/disciplinas"}>
-            <svelte:fragment slot="icon"><BookCopy /></svelte:fragment>
             <svelte:fragment slot="title">Disciplinas</svelte:fragment>
           </SidebarItem>
         </Sidebar>

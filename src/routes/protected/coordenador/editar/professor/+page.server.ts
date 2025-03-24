@@ -2,9 +2,8 @@ import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { RequestEvent } from '@sveltejs/kit';
 import { BACKEND_URL } from '$env/static/private';
-import { setFlash } from 'sveltekit-flash-message/server';
 import type { Professor } from '$lib/types/Professor';
-import { handleError } from '$lib/components/notificator';
+import { handleError, handleSuccess } from '$lib/components/notificator';
 
 export const load = (async ({ cookies, locals }) => {
     const response = await fetch(`${BACKEND_URL}/coordenador/professores`, {
@@ -16,7 +15,6 @@ export const load = (async ({ cookies, locals }) => {
     })
 
     if(!response.ok){
-        console.error(response.status);
         return await handleError(response, cookies);
     }
     const professores: Professor[] = await response.json();
@@ -25,13 +23,13 @@ export const load = (async ({ cookies, locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-    delete: async({ cookies, request, locals }: RequestEvent) => {
+    edit: async({ cookies, request, locals }: RequestEvent) => {
 
         const data = await request.formData();
-        const cpf = data.get("cpf");
+        console.log(data);
 
-        const response = await fetch(`${BACKEND_URL}/coordenador/deletar-professor/${cpf}`, {
-            method: "DELETE",
+        const response = await fetch(`${BACKEND_URL}/coordenador/alterar-professor/${cpf}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${locals.token}`
@@ -39,11 +37,9 @@ export const actions: Actions = {
         });
 
         if(!response.ok){
-            console.error(response)
             return await handleError(response, cookies);
         }
 
-        setFlash({ type: 'success', message: 'O professor foi deletado com sucesso!' }, cookies)
-        console.log("Professor deletado com sucesso.")
+        handleSuccess(cookies, "Professor alterado com sucesso!");
     }
 }

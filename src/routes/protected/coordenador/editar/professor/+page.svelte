@@ -23,8 +23,9 @@
   <div class="flex items-center justify-center">
     <ul class="w-1/2">
       {#each professores as professor}
-        <div class="bg-gray-200 mt-4 mb-4 pl-4 pr-4 rounded-md">
-          <li class="flex justify-between pt-4 pb-4 select-none">
+        <div class="collapse collapse-arrow bg-base-100 border border-base-300">
+          <input type="radio" name="my-accordion-2" />
+          <div class="collapse-title font-semibold">
             <div class="inline">
               <p>
                 <span class="font-bold text-primary">Nome:</span>
@@ -34,13 +35,10 @@
                 <span class="font-bold text-primary">CPF: </span>{professor.cpf}
               </p>
             </div>
-            <button
-              class="btn btn-primary"
-              on:click={() => openModal(professor)}
-            >
-              Remover
-            </button>
-          </li>
+          </div>
+          <div class="collapse-content text-sm">
+            <form method=""></form>
+          </div>
         </div>
       {/each}
     </ul>
@@ -48,7 +46,7 @@
 
   <dialog bind:this={modal} class="modal">
     <div class="modal-box">
-      <h3 class="text-lg font-bold">Aviso!</h3>
+      <h3 class="text-lg font-bold">Insira os dados abaixo</h3>
       <p class="py-4">
         Você tem certeza que deseja mesmo apagar o professor <br /><span
           class="font-bold">{selectedProfessor?.nome}</span
