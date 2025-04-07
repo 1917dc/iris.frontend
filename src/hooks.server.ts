@@ -26,7 +26,7 @@ export const handle = (async ({ event, resolve }) => {
 
     const tokenData: Token = jwtDecode(token);
     const response = await fetch(
-        `${BACKEND_URL}/professores/${tokenData.sub}`,
+        `${BACKEND_URL}/coordenador/professores/${tokenData.sub}`,
         {
           method: "GET",
           headers: {
@@ -35,6 +35,7 @@ export const handle = (async ({ event, resolve }) => {
           },
         }
       );
+
 
     if(!response.ok){
         console.error(`Erro ao puxar dados do usuário: ${response.status}`)

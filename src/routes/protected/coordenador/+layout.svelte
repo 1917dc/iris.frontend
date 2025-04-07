@@ -26,8 +26,10 @@
           <SidebarItem urlPath={"/protected/coordenador/editar/professor"}>
             <svelte:fragment slot="title">Professor - Editar</svelte:fragment>
           </SidebarItem>
-          <SidebarItem urlPath={"/protected/coordenador/disciplinas"}>
-            <svelte:fragment slot="title">Disciplinas</svelte:fragment>
+          <SidebarItem urlPath={"/protected/coordenador/registrar/disciplinas"}>
+            <svelte:fragment slot="title"
+              >Disciplinas - Registrar</svelte:fragment
+            >
           </SidebarItem>
         </Sidebar>
       </div>
