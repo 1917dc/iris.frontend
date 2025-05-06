@@ -23,9 +23,8 @@
   <div class="flex items-center justify-center">
     <ul class="w-1/2">
       {#each professores as professor}
-        <div class="collapse collapse-arrow bg-base-100 border border-base-300">
-          <input type="radio" name="my-accordion-2" />
-          <div class="collapse-title font-semibold">
+        <div class="bg-gray-200 mt-4 mb-4 pl-4 pr-4 rounded-md">
+          <li class="flex justify-between pt-4 pb-4 select-none">
             <div class="inline">
               <p>
                 <span class="font-bold text-primary">Nome:</span>
@@ -35,10 +34,13 @@
                 <span class="font-bold text-primary">CPF: </span>{professor.cpf}
               </p>
             </div>
-          </div>
-          <div class="collapse-content text-sm">
-            <form method=""></form>
-          </div>
+            <button
+              class="btn btn-primary"
+              on:click={() => openModal(professor)}
+            >
+              Editar
+            </button>
+          </li>
         </div>
       {/each}
     </ul>
