@@ -5,6 +5,7 @@
 
   export let data: PageData;
   const { professores } = data;
+  const { form, enhance } = superForm(data.form);
 
   const openModal = () => {
     const modal = document.getElementById("modal_confirm") as HTMLDialogElement;
@@ -30,52 +31,56 @@
   };
 </script>
 
+<svelte:head>
+  <title>Coordenador | Cadastro de Disciplina</title>
+</svelte:head>
+
 <div>
   <div class="prose m-auto select-none">
-    <form class="form-control" id="registerForm" method="post" action="?/post">
+    <form class="form-control" id="registerForm" method="post" action="?/post" use:enhance>
       <label class="input input-bordered flex items-center gap-2 my-4">
         <input
-          required
+          name="identificador"
           type="text"
           class="grow"
           placeholder="Identificador da turma"
-          name="identificador"
+          bind:value={$form.identificador}
         />
         <SquarePen />
       </label>
 
       <label class="input input-bordered flex items-center gap-2 my-4">
         <input
-          required
+          name="sala"
           type="text"
           class="grow"
           placeholder="Sala da turma"
-          name="sala"
+          bind:value={$form.sala}
         />
         <School />
       </label>
 
       <label class="input input-bordered flex items-center gap-2 my-4">
         <input
-          required
+          name="disciplina"
           type="text"
           class="grow"
           placeholder="Nome da disciplina"
-          name="disciplina"
+          bind:value={$form.disciplina}
         />
         <Book />
       </label>
 
       <label class="form-control my-4">
-        <select required class="select select-bordered">
-          <option disabled selected>Atribua um professor</option>
-          {#each professores as professor}
-            <option>{professor.nome}</option>
+        <select name="professor" class="select select-bordered w-full" bind:value={$form.professor} required>
+          <option disabled selected value="">Atribua a um professor</option>
+          {#each data.professores as professor}
+            <option value={professor.cpf}>{professor.nome}</option>
           {/each}
         </select>
       </label>
 
-      <button class="btn btn-primary" on:click={openModal}
+      <button type="button" class="btn btn-primary" on:click={openModal}
         >Registrar Disciplina</button
       >
     </form>

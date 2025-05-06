@@ -39,7 +39,7 @@
         </Sidebar>
       </div>
       <div class="navbar-center">
-        <HomeButton urlPath="/protected/coordenador" />
+        <HomeButton urlPath="/protected/coordenador/listar/disciplinas" />
       </div>
       <div class="navbar-end">
         <form action="/auth/logout" method="POST">
