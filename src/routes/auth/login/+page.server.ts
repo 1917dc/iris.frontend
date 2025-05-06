@@ -77,7 +77,7 @@ export const actions: Actions = {
     });
 
     if (token.role.includes("COORDENADOR")) {
-      throw redirect(302, "/protected/coordenador/registrar/professor");
+      throw redirect(302, "/protected/coordenador/listar/disciplinas");
     } else if (token.role.includes("PROFESSOR")) {
       throw redirect(302, "/protected/professor/disciplinas");
     } 

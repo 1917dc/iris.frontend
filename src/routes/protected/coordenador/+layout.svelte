@@ -31,6 +31,11 @@
               >Disciplinas - Registrar</svelte:fragment
             >
           </SidebarItem>
+          <SidebarItem urlPath={"/protected/coordenador/listar/disciplinas"}>
+            <svelte:fragment slot="title"
+              >Disciplinas - Visualizar</svelte:fragment
+            >
+          </SidebarItem>
         </Sidebar>
       </div>
       <div class="navbar-center">
