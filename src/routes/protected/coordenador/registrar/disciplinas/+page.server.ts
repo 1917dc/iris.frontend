@@ -51,9 +51,6 @@ export const actions: Actions = {
             professorCPF: professor
         };
 
-        console.log("Payload enviado:", payload);
-
-
         const response = await fetch(`${BACKEND_URL}/coordenador/cadastrar-turma`, {
             method: "POST",
             headers: {
@@ -62,9 +59,6 @@ export const actions: Actions = {
             },
             body: JSON.stringify(payload)
         });
-
-
-        console.log("Resposta do back-end:", await response.json());
 
         if (!response.ok) {
             return await handleError(response, cookies);
