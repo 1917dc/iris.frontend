@@ -30,7 +30,7 @@ export const actions: Actions = {
         const data = await request.formData();
         const cpf = data.get("cpf");
 
-        const response = await fetch(`${BACKEND_URL}/coordenador/deletar-professor/${cpf}`, {
+        const response = await fetch(`${BACKEND_URL}/coordenador/deletar-professor?cpf=${cpf}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
