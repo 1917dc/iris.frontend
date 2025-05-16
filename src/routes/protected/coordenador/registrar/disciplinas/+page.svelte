@@ -75,7 +75,9 @@
         <select name="professor" class="select select-bordered w-full" bind:value={$form.professor} required>
           <option disabled selected value="">Atribua a um professor</option>
           {#each data.professores as professor}
-            <option value={professor.cpf}>{professor.nome}</option>
+            {#if professor.enabled}
+              <option value={professor.cpf}>{professor.nome}</option>
+            {/if}
           {/each}
         </select>
       </label>

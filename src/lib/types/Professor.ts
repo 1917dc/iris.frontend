@@ -3,4 +3,5 @@ export interface Professor {
     nome: string;
     cpf: string;
     role: string;
+    enabled: boolean;
 }
