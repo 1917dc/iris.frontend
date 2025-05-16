@@ -30,7 +30,7 @@ export const actions: Actions = {
         const data = await request.formData();
         const cpf = data.get("cpf");
 
-        const response = await fetch(`${BACKEND_URL}/coordenador/deletar-professor?cpf=${cpf}`, {
+        const response = await fetch(`${BACKEND_URL}/coordenador/desabilitar-habilitar-usuario?cpf=${cpf}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export const actions: Actions = {
             return await handleError(response, cookies);
         }
 
-        setFlash({ type: 'success', message: 'O professor foi deletado com sucesso!' }, cookies)
-        console.log("Professor deletado com sucesso.")
+        setFlash({ type: 'success', message: 'O professor foi desabilitado com sucesso!' }, cookies)
+        console.log("Professor desabilitado com sucesso.")
     }
 }

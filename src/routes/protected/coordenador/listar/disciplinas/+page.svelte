@@ -2,6 +2,7 @@
   import type { PageData } from "./$types";
 
   export let data: PageData;
+  const { disciplinas } = data;
 </script>
 
 <div class="mt-12 ml-10 mr-10">
@@ -30,6 +31,25 @@
       class="h-auto max-h-full select-none"
     />
   </div>
-  <!-- Colocar aqui  as disciplinas -->
+    {#if disciplinas.length > 0}
+      <ul>
+        {#each disciplinas as disciplina (disciplina.id)}
+          <li>
+            <strong>{disciplina.disciplina}</strong> (Código: {disciplina.identificador})
+            <br />
+            {#if disciplina.professor.enabled}
+              Professor: {disciplina.professor.nome}
+            {:else}
+              Professor: indefinido
+            {/if}
+            - Sala: {disciplina.sala}
+            <br />
+            Alunos: {disciplina.alunos.length > 0 ? disciplina.alunos.length : 'Nenhum aluno registrado'}
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <p>Não há disciplinas cadastradas.</p>
+    {/if}
   <div></div>
 </div>
