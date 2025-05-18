@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import SuperDebug, { superForm } from "sveltekit-superforms";
+  import { superForm } from "sveltekit-superforms";
   import { imask } from "@imask/svelte";
   import { User } from "lucide-svelte";
   import { Lock } from "lucide-svelte";
+  import { IdCard } from 'lucide-svelte';
 
   export let data: PageData;
-  const { form, errors, enhance } = superForm(data.form);
+  const { form, errors } = superForm(data.form);
 
   const options = {
     mask: "000{.}000{.}000{-}00",
@@ -15,7 +16,7 @@
 </script>
 
 <svelte:head>
-  <title>Login</title>
+  <title>Cadastro de Aluno</title>
 </svelte:head>
 
 <body class="bg-slate-100 h-screen m-0 overflow-hidden">
@@ -37,14 +38,50 @@
         <div class="bg-slate-100 h-96 w-96 rounded-2xl row-start-3 mt-5"></div>
       </div>
     </div>
-    <!--     div que contém o form de login -->
+    <!--     div que contém o form de cadastro -->
     <div class="grid-cols-1 grid-rows-3 select-none">
       <div class="bg-slate-100 h-96 w-96 rounded-2xl row-start-1 mb-5"></div>
       <div
         class="h-96 w-96 bg-primary rounded-2xl shadow-no-blur-lg row-span-2 pt-10 pb-10 pl-5 pr-5"
       >
         <form method="post" action="?/post" class="form-control">
-          <div class="m-5">
+          <div class="m-2 mx-5">
+            <label class="input input-bordered flex items-center gap-2">
+              <input
+                name="name"
+                type="text"
+                class="grow"
+                placeholder="John Doe"
+                spellcheck="false"
+                autocomplete="off"
+                bind:value={$form.name}
+              />
+              <User class="h-4 w-4 opacity-70"></User>
+            </label>
+            {#if $errors.name}
+              <p class="text-error text-sm m-0 ml-1 mt-2">{$errors.name}</p>
+            {/if}
+          </div>
+
+          <div class="m-2 mx-5">
+            <label class="input input-bordered flex items-center gap-2">
+              <input
+                name="matricula"
+                type="text"
+                class="grow"
+                placeholder="Matrícula"
+                spellcheck="false"
+                autocomplete="off"
+                bind:value={$form.matricula}
+              />
+              <IdCard class="h-4 w-4 opacity-70"></IdCard>
+            </label>
+            {#if $errors.matricula}
+              <p class="text-error text-sm m-0 ml-1 mt-2">{$errors.matricula}</p>
+            {/if}
+          </div>
+          
+          <div class="m-2 mx-5">
             <label class="input input-bordered flex items-center gap-2">
               <input
                 name="cpf"
@@ -57,14 +94,14 @@
                 bind:value={$form.cpf}
                 use:imask={options}
               />
-              <User class="h-4 w-4 opacity-70"></User>
+              <IdCard class="h-4 w-4 opacity-70"></IdCard>
             </label>
             {#if $errors.cpf}
               <p class="text-error text-sm">{$errors.cpf}</p>
             {/if}
           </div>
 
-          <div class="m-5 mb-16">
+          <div class="m-2 mx-5 mb-2">
             <label class="input input-bordered flex items-center gap-2">
               <input
                 name="password"
@@ -82,10 +119,6 @@
             {/if}
           </div>
           <button class="btn text-primary m-5" type="submit">Entrar</button>
-
-          <p class="text-center text-sm text-white">
-            <a href="/signup/aluno" class="underline hover:text-slate-300 ml-1">Estudante, ainda não tem cadastro?</a>
-          </p>
         </form>
       </div>
       <div class="h-96 w-96 bg-primary rounded-2xl mt-5"></div>
