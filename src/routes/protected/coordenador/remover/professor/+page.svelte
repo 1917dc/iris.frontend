@@ -52,7 +52,7 @@
     <div class="modal-box">
       <h3 class="text-lg font-bold">Aviso!</h3>
       <p class="py-4">
-        Você tem certeza que deseja mesmo apagar o professor <br /><span
+        Você tem certeza que deseja mesmo desabilitar o professor <br /><span
           class="font-bold">{selectedProfessor?.nome}</span
         > do sistema?
       </p>
