@@ -35,7 +35,7 @@
   <title>Coordenador | Cadastro de Disciplina</title>
 </svelte:head>
 
-<div>
+<div class="mt-[20vh] mx-[5vw]">
   <div class="prose m-auto select-none">
     <form class="form-control" id="registerForm" method="post" action="?/post" use:enhance>
       <label class="input input-bordered flex items-center gap-2 my-4">

@@ -70,6 +70,9 @@
                 <SidebarItem urlPath={"/protected/coordenador/remover/aluno"}>
                   <svelte:fragment slot="title">Remover</svelte:fragment>
                 </SidebarItem>
+                <SidebarItem urlPath={"/protected/coordenador/editar/aluno"}>
+                  <svelte:fragment slot="title">Editar</svelte:fragment>
+                </SidebarItem>
               </div>
             {/if}
           </div>

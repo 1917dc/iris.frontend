@@ -45,7 +45,7 @@
         class="h-96 w-96 bg-primary rounded-2xl shadow-no-blur-lg row-span-2 pt-10 pb-10 pl-5 pr-5"
       >
         <form method="post" action="?/post" class="form-control">
-          <div class="m-2 mx-5">
+          <div class="m-2 mt-0 mx-5">
             <label class="input input-bordered flex items-center gap-2">
               <input
                 name="name"
