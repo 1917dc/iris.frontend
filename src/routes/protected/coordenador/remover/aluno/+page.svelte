@@ -1,14 +1,14 @@
 <script lang="ts">
-    import type { User } from "$lib/types/User";
+    import type { Aluno } from "$lib/types/Aluno";
     import type { PageData } from "./$types";
   
     export let data: PageData;
     const { alunos } = data;
   
     let modal: HTMLDialogElement | null = null;
-    let selectedAluno: User | null = null;
+    let selectedAluno: Aluno | null = null;
   
-    const openModal = (aluno: User) => {
+    const openModal = (aluno: Aluno) => {
       selectedAluno = aluno;
       modal?.showModal();
     };
@@ -36,7 +36,7 @@
                   </p>
                 </div>
                 <button
-                  class="btn btn-primary"
+                  class="btn btn-primary" type="button"
                   on:click={() => openModal(aluno)}
                 >
                   Remover

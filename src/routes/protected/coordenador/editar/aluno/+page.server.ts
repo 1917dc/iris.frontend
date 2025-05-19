@@ -24,26 +24,4 @@ export const load = (async ({ cookies, locals }) => {
     return { alunos };
 }) satisfies PageServerLoad;
 
-export const actions: Actions = {
-    delete: async({ cookies, request, locals }: RequestEvent) => {
-
-        const data = await request.formData();
-        const cpf = data.get("cpf");
-
-        const response = await fetch(`${BACKEND_URL}/coordenador/desabilitar-habilitar-usuario?cpf=${cpf}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${locals.token}`
-            }
-        });
-
-        if(!response.ok){
-            console.error(response)
-            return await handleError(response, cookies);
-        }
-
-        setFlash({ type: 'success', message: 'O aluno foi desabilitado com sucesso!' }, cookies)
-        console.log("Aluno desabilitado com sucesso.")
-    }
-}
+// Aqui requisição para editar aluno

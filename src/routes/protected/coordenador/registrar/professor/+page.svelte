@@ -47,7 +47,7 @@
   <title>Coordenador | Cadastro de Professor</title>
 </svelte:head>
 
-<div class="justify-center">
+<div class="mt-[20vh] mx-[5vw]">
   <div class="prose m-auto select-none">
     <form
       id="registerForm"
