@@ -19,6 +19,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>Coordenador | Deleção de Professor</title>
+</svelte:head>
+
 <main>
   <div class="flex items-center justify-center">
     <ul class="w-1/2">

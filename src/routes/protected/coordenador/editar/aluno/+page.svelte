@@ -43,6 +43,10 @@
         }
     };
 </script>
+
+<svelte:head>
+  <title>Coordenador | Edição de Aluno</title>
+</svelte:head>
   
 <main>
     <div class="flex items-center justify-center">
