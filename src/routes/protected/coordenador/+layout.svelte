@@ -1,10 +1,10 @@
 <script lang="ts">
   import "tailwindcss/tailwind.css";
-  import { LogOut, UserRound, BookText, UserRoundPen } from "lucide-svelte";
+  import { LogOut, UserRound, BookText, UserRoundPen, Layers } from "lucide-svelte";
   import { Sidebar, SidebarItem } from "$lib/components/sidebar";
   import { HomeButton } from "$lib/components/home-button";
 
-  let activeCategory: "none" | "professor" | "aluno" | "disciplina" = "none";
+  let activeCategory: "none" | "professor" | "aluno" | "disciplina" | "turma" = "none";
 </script>
 
 <svelte:head>
@@ -35,6 +35,24 @@
               </div>
             {/if}
           </div>
+
+          <div class="mb-3">
+            <button
+              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+              on:click={() => activeCategory = activeCategory === "turma" ? "none" : "turma"}
+            >
+              <span>Turma</span>
+              <Layers/>
+            </button>
+            {#if activeCategory === "turma"}
+              <div class="space-y-1">
+                <SidebarItem urlPath={"/protected/coordenador/listar/turmas"}>
+                  <svelte:fragment slot="title">Registro</svelte:fragment>
+                </SidebarItem>
+              </div>
+            {/if}
+          </div>
+
           <div class="mb-3">
             <button
               class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"

@@ -18,6 +18,10 @@
       selectedAluno = null;
     };
   </script>
+
+<svelte:head>
+  <title>Coordenador | Deleção de Aluno</title>
+</svelte:head>
   
   <main>
     <div class="flex items-center justify-center">
