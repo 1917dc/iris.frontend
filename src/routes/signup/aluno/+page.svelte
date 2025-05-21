@@ -7,6 +7,7 @@
   import { IdCard } from 'lucide-svelte';
 
   export let data: PageData;
+  const { turmas } = data;
   const { form, errors } = superForm(data.form);
 
   const options = {
@@ -66,38 +67,38 @@
           <div class="m-2 mx-5">
             <label class="input input-bordered flex items-center gap-2">
               <input
-                name="matricula"
-                type="text"
-                class="grow"
-                placeholder="Matrícula"
-                spellcheck="false"
-                autocomplete="off"
-                bind:value={$form.matricula}
-              />
-              <IdCard class="h-4 w-4 opacity-70"></IdCard>
-            </label>
-            {#if $errors.matricula}
-              <p class="text-error text-sm m-0 ml-1 mt-2">{$errors.matricula}</p>
-            {/if}
-          </div>
-          
-          <div class="m-2 mx-5">
-            <label class="input input-bordered flex items-center gap-2">
-              <input
-                name="cpf"
-                type="text"
-                class="grow"
-                placeholder="000.000.000-00"
-                spellcheck="false"
-                autocomplete="off"
-                maxlength={14}
-                bind:value={$form.cpf}
-                use:imask={options}
+              name="cpf"
+              type="text"
+              class="grow"
+              placeholder="000.000.000-00"
+              spellcheck="false"
+              autocomplete="off"
+              maxlength={14}
+              bind:value={$form.cpf}
+              use:imask={options}
               />
               <IdCard class="h-4 w-4 opacity-70"></IdCard>
             </label>
             {#if $errors.cpf}
-              <p class="text-error text-sm">{$errors.cpf}</p>
+            <p class="text-error text-sm">{$errors.cpf}</p>
+            {/if}
+          </div>
+
+          <div class="m-2 mx-5">
+            <label class="form-control">
+              <select
+                name="turma"
+                class="select select-bordered w-full input input-bordered text-gray-600 focus:ring focus:ring-primary-300"
+                bind:value={$form.turma}
+              >
+                <option value="" disabled selected>Selecione uma turma</option>
+                {#each turmas as turma}
+                  <option value={turma}>{turma}</option>
+                {/each}
+              </select>
+            </label>
+            {#if $errors.turma}
+              <p class="text-error text-sm m-0 ml-1 mt-2">{$errors.turma}</p>
             {/if}
           </div>
 
@@ -118,7 +119,7 @@
               <p class="text-error text-sm">{$errors.password}</p>
             {/if}
           </div>
-          <button class="btn text-primary m-5" type="submit">Entrar</button>
+          <button class="btn text-primary m-5" type="submit">Cadastrar</button>
         </form>
       </div>
       <div class="h-96 w-96 bg-primary rounded-2xl mt-5"></div>

@@ -24,6 +24,14 @@
 </svelte:head>
 
 <main>
+  <div
+  class="flex items-center justify-center mb-12"
+  >
+    <h1 class="mt-14 text-4xl font-semibold text-primary">
+      Remoção de Professor
+    </h1>
+  </div>
+
   <div class="flex items-center justify-center">
     <ul class="w-1/2">
       {#each professores as professor}

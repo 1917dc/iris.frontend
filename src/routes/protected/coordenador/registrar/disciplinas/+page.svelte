@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { superForm } from "sveltekit-superforms";
-  import { Book, School, SquarePen } from "lucide-svelte";
+  import { Book, Plus } from "lucide-svelte";
 
   export let data: PageData;
   const { professores } = data;
+  const { turmas } = data;
   const { form, enhance } = superForm(data.form);
 
   const openModal = () => {
@@ -35,31 +36,24 @@
   <title>Coordenador | Cadastro de Disciplina</title>
 </svelte:head>
 
-<div class="mt-[20vh] mx-[5vw]">
+<div class="mt-[15vh] mx-[5vw]">
+  <div
+  class="flex items-center justify-center mb-12"
+  >
+    <h1 class="text-4xl font-semibold text-primary">
+      Cadastro de Disciplina
+    </h1>
+  </div>
+
   <div class="prose m-auto select-none">
+    <div style="text-align: right;">
+      <a href="/protected/coordenador/registrar/turma">
+        <button type="button" class="btn btn-primary"
+          ><Plus />Turma</button
+        >
+      </a>
+    </div>
     <form class="form-control" id="registerForm" method="post" action="?/post" use:enhance>
-      <label class="input input-bordered flex items-center gap-2 my-4">
-        <input
-          name="identificador"
-          type="text"
-          class="grow"
-          placeholder="Identificador da turma"
-          bind:value={$form.identificador}
-        />
-        <SquarePen />
-      </label>
-
-      <label class="input input-bordered flex items-center gap-2 my-4">
-        <input
-          name="sala"
-          type="text"
-          class="grow"
-          placeholder="Sala da turma"
-          bind:value={$form.sala}
-        />
-        <School />
-      </label>
-
       <label class="input input-bordered flex items-center gap-2 my-4">
         <input
           name="disciplina"
@@ -82,8 +76,17 @@
         </select>
       </label>
 
+      <label class="form-control my-4">
+        <select name="turma" class="select select-bordered w-full" bind:value={$form.turma} required>
+          <option disabled selected value="">Selecione uma turma</option>
+          {#each data.turmas as turma}
+            <option value={turma.identificador}>{turma.identificador}</option>
+          {/each}
+        </select>
+      </label>
+
       <button type="button" class="btn btn-primary" on:click={openModal}
-        >Registrar Disciplina</button
+        >Cadastrar Disciplina</button
       >
     </form>
 

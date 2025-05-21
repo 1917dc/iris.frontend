@@ -1,10 +1,10 @@
 <script lang="ts">
   import "tailwindcss/tailwind.css";
-  import { LogOut, UserRound, BookText, UserRoundPen, Layers } from "lucide-svelte";
+  import { LogOut, UserRound, BookText, UserRoundPen, Layers, CircleUser } from "lucide-svelte";
   import { Sidebar, SidebarItem } from "$lib/components/sidebar";
   import { HomeButton } from "$lib/components/home-button";
 
-  let activeCategory: "none" | "professor" | "aluno" | "disciplina" | "turma" = "none";
+  let activeCategory: "none" | "professor" | "aluno" | "disciplina" | "turma" | "coordenador" = "none";
 </script>
 
 <svelte:head>
@@ -32,6 +32,9 @@
                 <SidebarItem urlPath={"/protected/coordenador/listar/disciplinas"}>
                   <svelte:fragment slot="title">Visualizar</svelte:fragment>
                 </SidebarItem>
+                <SidebarItem urlPath={"/protected/coordenador/remover/disciplina"}>
+                  <svelte:fragment slot="title">Remover</svelte:fragment>
+                </SidebarItem>
               </div>
             {/if}
           </div>
@@ -47,7 +50,13 @@
             {#if activeCategory === "turma"}
               <div class="space-y-1">
                 <SidebarItem urlPath={"/protected/coordenador/listar/turmas"}>
-                  <svelte:fragment slot="title">Registro</svelte:fragment>
+                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                </SidebarItem>
+                <SidebarItem urlPath={"/protected/coordenador/remover/turma"}>
+                  <svelte:fragment slot="title">Remover</svelte:fragment>
+                </SidebarItem>
+                <SidebarItem urlPath={"/protected/coordenador/editar/turma"}>
+                  <svelte:fragment slot="title">Editar</svelte:fragment>
                 </SidebarItem>
               </div>
             {/if}
@@ -89,6 +98,22 @@
                   <svelte:fragment slot="title">Remover</svelte:fragment>
                 </SidebarItem>
                 <SidebarItem urlPath={"/protected/coordenador/editar/aluno"}>
+                  <svelte:fragment slot="title">Editar</svelte:fragment>
+                </SidebarItem>
+              </div>
+            {/if}
+          </div>
+          <div class="mb-3">
+            <button
+              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+              on:click={() => activeCategory = activeCategory === "coordenador" ? "none" : "coordenador"}
+            >
+              <span>Coordenador</span>
+              <CircleUser/>
+            </button>
+            {#if activeCategory === "coordenador"}
+              <div class="space-y-1">
+                <SidebarItem urlPath={"/protected/coordenador/editar/coordenador"}>
                   <svelte:fragment slot="title">Editar</svelte:fragment>
                 </SidebarItem>
               </div>
