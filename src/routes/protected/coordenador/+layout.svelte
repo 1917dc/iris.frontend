@@ -32,6 +32,9 @@
                 <SidebarItem urlPath={"/protected/coordenador/listar/disciplinas"}>
                   <svelte:fragment slot="title">Visualizar</svelte:fragment>
                 </SidebarItem>
+                <SidebarItem urlPath={"/protected/coordenador/remover/disciplina"}>
+                  <svelte:fragment slot="title">Remover</svelte:fragment>
+                </SidebarItem>
               </div>
             {/if}
           </div>
@@ -48,6 +51,9 @@
               <div class="space-y-1">
                 <SidebarItem urlPath={"/protected/coordenador/listar/turmas"}>
                   <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                </SidebarItem>
+                <SidebarItem urlPath={"/protected/coordenador/remover/turma"}>
+                  <svelte:fragment slot="title">Remover</svelte:fragment>
                 </SidebarItem>
               </div>
             {/if}
