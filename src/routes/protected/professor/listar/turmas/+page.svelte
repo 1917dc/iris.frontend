@@ -1,12 +1,17 @@
 <script lang="ts">
+  import { redirect } from "@sveltejs/kit";
   import type { PageData } from "./$types";
   import { MessageSquareWarning } from "lucide-svelte";
+  import { goto } from "$app/navigation";
 
   export let data: PageData;
-
-  console.log(data);
-
   const { turmas } = data;
+
+  console.log(turmas);
+
+  function openTurma(id: string) {
+    goto(`/protected/professor/turma/${id}`);
+  }
 </script>
 
 <div class="mt-12 ml-10 mr-10">
@@ -48,10 +53,15 @@
               {turma.disciplinas[data.user?.nome]}
             </h2>
             <h5 class="text-xl font-semibold text-primary mb-2">
-              {turma.identificador}
+              Turma: {turma.identificador}
+            </h5>
+            <h5 class="text-xl font-semibold text-primary mb-2">
+              Sala: {turma.sala}
             </h5>
           </div>
-          <button class="btn btn-primary ml-52"> Abrir </button>
+          <button class="btn btn-primary" on:click={() => openTurma(turma.id)}>
+            Abrir
+          </button>
         </div>
       {/each}
     </div>
