@@ -43,23 +43,23 @@
 
   {#if turmas.length > 0}
     <div class="grid gap-4 grid-cols-3 m-10 mx-0">
-      {#each turmas as turma (turma.id)}
+      {#each turmas as turma}
         <div
           class="bg-gray-200 shadow-no-blur-sm rounded-lg p-8 flex flex-col justify-between h-56"
           id="card"
         >
           <div>
             <h2 class="text-3xl font-semibold text-primary mb-2">
-              {turma.disciplinas[data.user?.nome]}
-            </h2>
-            <h5 class="text-xl font-semibold text-primary mb-2">
               Turma: {turma.identificador}
-            </h5>
+            </h2>
             <h5 class="text-xl font-semibold text-primary mb-2">
               Sala: {turma.sala}
             </h5>
           </div>
-          <button class="btn btn-primary" on:click={() => openTurma(turma.id)}>
+          <button
+            class="btn btn-primary"
+            on:click={() => openTurma(turma.identificador)}
+          >
             Abrir
           </button>
         </div>
