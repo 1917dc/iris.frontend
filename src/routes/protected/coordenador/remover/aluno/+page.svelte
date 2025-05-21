@@ -25,7 +25,7 @@
 </svelte:head>
   
 <main>
-  {#if alunos.length > 0}
+  {#if alunos.length > 0 && alunos.some(aluno => aluno.enabled)}
     <div
     class="flex items-center justify-center mb-12"
     >
@@ -63,7 +63,7 @@
   {:else}
     <div class="mx-10 flex flex-col justify-center items-center h-64 bg-gray-100 rounded-lg shadow-md mt-8">
       <MessageSquareWarning class="text-gray-600 mb-6" size={50} />
-      <p class="text-2xl text-center text-gray-600">Ainda não há alunos cadastrados</p>
+      <p class="text-2xl text-center text-gray-600">Não há alunos a serem removidos</p>
     </div>
   {/if}
 
