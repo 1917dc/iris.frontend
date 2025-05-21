@@ -5,38 +5,33 @@ import {type Actions, type Cookies,redirect, type RequestEvent} from "@sveltejs/
 import { BACKEND_URL } from "$env/static/private";
 import { setFlash } from "sveltekit-flash-message/server";
 import { SchemaCpf } from "$lib/schemas/SchemaCpf";
-
-/**
- * Usando "Zod Schemas" para validação client side
- * de dados no front-end.
- * 
- * Documentação: https://zod.dev/
- */
+import { handleError } from "$lib/components/notificator";
+import type { PageServerLoad } from "./$types";
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: "Campo obrigatório." }),
-  matricula: z.string().min(2, { message: "Campo obrigatório." }),
+  turma: z.string().min(1, { message: "Selecione uma turma." }),
   cpf: SchemaCpf,
   password: z.string().min(4, { message: "A senha deve conter ao menos 4 caracteres" }),
 });
 
-export const load = async () => {
+export const load = (async ({cookies}) => {
   const form = await superValidate(zod(registerSchema));
-  return { form };
-};
 
-const handleError = async (response: Response, cookies: Cookies) => {
-  let errorMessage;
-
-  try {
-    const errorData = await response.json();
-    errorMessage = errorData.mensagem;
-  } catch (e) {
-    errorMessage = "Erro inesperado. Tente novamente mais tarde.";
+  const response = await fetch(`${BACKEND_URL}/aluno/turmas-disponiveis`, {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+      }
+  });
+  
+  if(!response.ok){
+      console.error(response.status);
+      return await handleError(response, cookies);
   }
-
-  setFlash({ type: "error", message: errorMessage }, cookies);
-};
+  const turmas: [] = await response.json();
+  return { form, turmas };
+}) satisfies PageServerLoad;
 
 export const actions: Actions = {
   post: async ({ cookies, request }: RequestEvent) => {
@@ -46,7 +41,7 @@ export const actions: Actions = {
       return setFlash({ type: "error", message: "Digite um CPF válido." }, cookies);
     }
 
-    const { name, cpf, password, matricula } = form.data;
+    const { name, cpf, password, turma } = form.data;
 
     const response = await fetch(`${BACKEND_URL}/aluno`, {
       method: "POST",
@@ -57,7 +52,7 @@ export const actions: Actions = {
         nome: name,
         cpf: cpf,
         senha: password,
-        matricula: matricula,
+        turmaIdentificador: turma,
       }),
     });
 

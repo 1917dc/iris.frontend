@@ -3,6 +3,6 @@ export interface Aluno {
     nome: string;
     cpf: string;
     role: string;
-    sala: string;
+    turmaIdentificador: string;
     enabled: boolean;
 }
