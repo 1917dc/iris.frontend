@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { MessageSquareWarning } from 'lucide-svelte';
+  import { MessageSquareWarning, X } from 'lucide-svelte';
 
   export let data: PageData;
   const { turmas } = data;
@@ -72,7 +72,7 @@
                       class="text-xl font-bold text-gray-600"
                       on:click={fecharModal}
                   >
-                      ×
+                      <X/>
                   </button>
               </div>
               

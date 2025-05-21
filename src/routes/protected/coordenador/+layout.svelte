@@ -47,7 +47,7 @@
             {#if activeCategory === "turma"}
               <div class="space-y-1">
                 <SidebarItem urlPath={"/protected/coordenador/listar/turmas"}>
-                  <svelte:fragment slot="title">Registro</svelte:fragment>
+                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
                 </SidebarItem>
               </div>
             {/if}

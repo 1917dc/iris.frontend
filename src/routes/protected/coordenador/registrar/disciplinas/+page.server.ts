@@ -7,18 +7,18 @@ import { superValidate } from 'sveltekit-superforms'
 import { handleError } from '$lib/components/notificator';
 import { type Actions, fail } from '@sveltejs/kit';
 import { setFlash } from 'sveltekit-flash-message/server';
+import type { Turma } from '$lib/types/Turma';
 
 const registerSchema = z.object({
-    identificador: z.string().min(1, { message: "Campo obrigatório." }),
-    sala: z.string().min(1, { message: "Campo obrigatório." }),
     disciplina: z.string().min(1, { message: "Campo obrigatório." }),
     professor: z.string().min(1, { message: "Selecione um professor." }),
+    turma: z.string().min(1, { message: "Selecione uma turma." }),
 });
 
 export const load = (async ({cookies, locals}) => {
     const form = await superValidate(zod(registerSchema));
 
-    const response = await fetch(`${BACKEND_URL}/coordenador/professores`, {
+    const professoresResponse = await fetch(`${BACKEND_URL}/coordenador/professores`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -26,12 +26,28 @@ export const load = (async ({cookies, locals}) => {
         }
     });
     
-    if(!response.ok){
-        console.error(response.status);
-        return await handleError(response, cookies);
+    if(!professoresResponse.ok){
+        console.error(professoresResponse.status);
+        return await handleError(professoresResponse, cookies);
     }
-    const professores: Professor[] = await response.json();
-    return { form, professores };
+    const professores: Professor[] = await professoresResponse.json();
+
+    const turmasResponse = await fetch(`${BACKEND_URL}/coordenador/turmas`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${locals.token}`
+        }
+    });
+
+    if (!turmasResponse.ok) {
+        console.error(turmasResponse.status);
+        return await handleError(turmasResponse, cookies);
+    }
+
+    const turmas: Turma[] = await turmasResponse.json();
+
+    return { form, professores, turmas };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
@@ -42,16 +58,14 @@ export const actions: Actions = {
             return fail(400, { form });
         }
 
-        const { identificador, sala, disciplina, professor } = form.data;
+        const { disciplina, professor, turma } = form.data;
 
         const payload = {
-            identificador,
-            sala,
-            disciplina,
-            professorCPF: professor
+            nome: disciplina,
+            professorCpf: professor
         };
-
-        const response = await fetch(`${BACKEND_URL}/coordenador/cadastrar-turma`, {
+        
+        const addDisciplina = await fetch(`${BACKEND_URL}/coordenador/adicionar-disciplina`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,14 +73,26 @@ export const actions: Actions = {
             },
             body: JSON.stringify(payload)
         });
-
-        if (!response.ok) {
-            return await handleError(response, cookies);
+        
+        if (!addDisciplina.ok) {
+            return await handleError(addDisciplina, cookies);
         }
 
-        setFlash({ type: 'success', message: 'Turma registrada com sucesso!' }, cookies);
+        const addDisciplinaTurma = await fetch(`${BACKEND_URL}/coordenador/adicionar-disciplina-turma?identificador=${turma}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${locals.token}`
+            },
+            body: JSON.stringify([disciplina])
+        });
+
+        if (!addDisciplinaTurma.ok) {
+            return await handleError(addDisciplinaTurma, cookies);
+        }
+
+        setFlash({ type: 'success', message: 'Disciplina registrada com sucesso!' }, cookies);
 
         return { form };
-        
     }
 }
