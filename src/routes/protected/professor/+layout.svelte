@@ -32,123 +32,37 @@
             <button
               class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
               on:click={() =>
-                (activeCategory = toggleCategory(activeCategory, "disciplina"))}
-            >
-              <span>Disciplina</span>
-              <BookText />
-            </button>
-            {#if activeCategory === "disciplina"}
-              <div class="space-y-1">
-                <SidebarItem
-                  urlPath={"/protected/coordenador/registrar/disciplinas"}
-                >
-                  <svelte:fragment slot="title">Registrar</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem
-                  urlPath={"/protected/coordenador/listar/disciplinas"}
-                >
-                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem
-                  urlPath={"/protected/coordenador/remover/disciplina"}
-                >
-                  <svelte:fragment slot="title">Remover</svelte:fragment>
-                </SidebarItem>
-              </div>
-            {/if}
-          </div>
-
-          <div class="mb-3">
-            <button
-              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
-              on:click={() =>
-                (activeCategory = toggleCategory(activeCategory, "turma"))}
-            >
-              <span>Turma</span>
-              <Layers />
-            </button>
-            {#if activeCategory === "turma"}
-              <div class="space-y-1">
-                <SidebarItem urlPath={"/protected/coordenador/listar/turmas"}>
-                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem urlPath={"/protected/coordenador/remover/turma"}>
-                  <svelte:fragment slot="title">Remover</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem urlPath={"/protected/coordenador/editar/turma"}>
-                  <svelte:fragment slot="title">Editar</svelte:fragment>
-                </SidebarItem>
-              </div>
-            {/if}
-          </div>
-
-          <div class="mb-3">
-            <button
-              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
-              on:click={() =>
-                (activeCategory = toggleCategory(activeCategory, "professor"))}
-            >
-              <span>Professor</span>
-              <UserRound />
-            </button>
-            {#if activeCategory === "professor"}
-              <div class="space-y-1">
-                <SidebarItem
-                  urlPath={"/protected/coordenador/registrar/professor"}
-                >
-                  <svelte:fragment slot="title">Registrar</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem
-                  urlPath={"/protected/coordenador/remover/professor"}
-                >
-                  <svelte:fragment slot="title">Remover</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem
-                  urlPath={"/protected/coordenador/editar/professor"}
-                >
-                  <svelte:fragment slot="title">Editar</svelte:fragment>
-                </SidebarItem>
-              </div>
-            {/if}
-          </div>
-          <div class="mb-3">
-            <button
-              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
-              on:click={() =>
-                (activeCategory = toggleCategory(activeCategory, "aluno"))}
-            >
-              <span>Aluno</span>
-              <UserRoundPen />
-            </button>
-            {#if activeCategory === "aluno"}
-              <div class="space-y-1">
-                <SidebarItem urlPath={"/protected/coordenador/remover/aluno"}>
-                  <svelte:fragment slot="title">Remover</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem urlPath={"/protected/coordenador/editar/aluno"}>
-                  <svelte:fragment slot="title">Editar</svelte:fragment>
-                </SidebarItem>
-              </div>
-            {/if}
-          </div>
-          <div class="mb-3">
-            <button
-              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
-              on:click={() =>
                 (activeCategory = toggleCategory(
                   activeCategory,
-                  "coordenador"
+                  "disciplinas"
                 ))}
             >
-              <span>Coordenador</span>
-              <CircleUser />
+              <span>Disciplinas</span>
+              <BookText />
             </button>
-            {#if activeCategory === "coordenador"}
+            {#if activeCategory === "disciplinas"}
               <div class="space-y-1">
                 <SidebarItem
-                  urlPath={"/protected/coordenador/editar/coordenador"}
+                  urlPath={"/protected/professor/listar/disciplinas"}
                 >
-                  <svelte:fragment slot="title">Editar</svelte:fragment>
+                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                </SidebarItem>
+              </div>
+            {/if}
+          </div>
+          <div class="mb-3">
+            <button
+              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+              on:click={() =>
+                (activeCategory = toggleCategory(activeCategory, "turmas"))}
+            >
+              <span>Turmas</span>
+              <BookText />
+            </button>
+            {#if activeCategory === "turmas"}
+              <div class="space-y-1">
+                <SidebarItem urlPath={"/protected/professor/listar/turmas"}>
+                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
                 </SidebarItem>
               </div>
             {/if}
@@ -156,7 +70,7 @@
         </Sidebar>
       </div>
       <div class="navbar-center">
-        <HomeButton urlPath="/protected/coordenador/listar/disciplinas" />
+        <HomeButton urlPath="/protected/professor/listar/turmas" />
       </div>
       <div class="navbar-end">
         <form action="/auth/logout" method="POST">

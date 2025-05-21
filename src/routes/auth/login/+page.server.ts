@@ -64,7 +64,6 @@ export const actions: Actions = {
       return await handleError(response, cookies);
     }
 
-    
     const rawToken = await response.json();
     const token: Token = jwtDecode(rawToken.token);
     const expirationTime = Math.floor(token.exp - (Date.now() / 1000));
