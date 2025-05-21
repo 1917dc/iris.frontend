@@ -24,9 +24,8 @@ export const handle = (async ({ event, resolve }) => {
     }
     event.locals.token = token;
 
-    const tokenData: Token = jwtDecode(token);
     const response = await fetch(
-        `${BACKEND_URL}/coordenador/professores/${tokenData.sub}`,
+        `${BACKEND_URL}/professores/info-conta`,
         {
           method: "GET",
           headers: {
