@@ -46,15 +46,6 @@ export const actions: Actions = {
         setFlash({ type: 'success', message: 'O novo coordenador foi habilitado com sucesso!' }, cookies)
         console.log("Coordenador habilitado com sucesso.")
 
-        const logoutResponse = await fetch('/auth/logout', {
-            method: 'POST',
-        });
-
-        if (!logoutResponse.ok) {
-            console.error("Falha no logout", logoutResponse);
-            return await handleError(logoutResponse, cookies);
-        }
-
-        throw redirect(302, '/auth/login');
+        //Lógica de logout
     }
 }
