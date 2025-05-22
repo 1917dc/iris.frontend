@@ -98,7 +98,7 @@
           <ul>
             {#each Object.entries(turmaSelecionada.disciplinas) as [disciplinaNome, professor]}
               <li class="text-lg">
-                <strong>{disciplinaNome}</strong> - Professor: {professor}
+                <strong>{disciplinaNome}</strong> - Professor(a): {professor}
               </li>
             {/each}
           </ul>

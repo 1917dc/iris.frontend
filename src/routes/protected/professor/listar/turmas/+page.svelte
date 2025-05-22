@@ -113,7 +113,7 @@
           <ul>
             {#each Object.entries(turmaSelecionada.disciplinas) as [disciplinaNome, professor]}
               <li class="text-lg">
-                <strong>{disciplinaNome}</strong> - Professor: {professor}
+                <strong>{disciplinaNome}</strong> - Professor(a): {professor}
               </li>
             {/each}
           </ul>
@@ -122,7 +122,7 @@
           {#if turmaSelecionada.nomesAlunos.length > 0}
             <ul>
               {#each turmaSelecionada.nomesAlunos as aluno}
-                <li>{aluno.nome}</li>
+                <li>{aluno}</li>
               {/each}
             </ul>
           {:else}
