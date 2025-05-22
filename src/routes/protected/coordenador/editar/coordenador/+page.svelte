@@ -53,7 +53,7 @@
                   class="btn btn-primary"
                   on:click={() => openModal(professor)}
                 >
-                  Editar
+                  Escolher
                 </button>
               </li>
             </div>
