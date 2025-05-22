@@ -46,6 +46,14 @@ export const actions: Actions = {
         setFlash({ type: 'success', message: 'O novo coordenador foi habilitado com sucesso!' }, cookies)
         console.log("Coordenador habilitado com sucesso.")
 
-        //Lógica de logout
+        
+		cookies.set('token', '', {
+			path: '/',
+			expires: new Date(0),
+			httpOnly: true,
+			sameSite: 'strict'
+		});
+
+		throw redirect(303, '/auth/login');
     }
 }
