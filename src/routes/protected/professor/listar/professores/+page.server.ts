@@ -1,11 +1,11 @@
 import { BACKEND_URL } from '$env/static/private';
 import type { PageServerLoad } from './$types';
 import { handleError } from '$lib/components/notificator';
-import type { Turma } from '$lib/types/Turma';
+import type { Professor } from '$lib/types/Professor';
 
 export const load = (async ({cookies, locals}) => {
 
-    const response = await fetch(`${BACKEND_URL}/professores/listar-turmas`, {
+    const response = await fetch(`${BACKEND_URL}/professores`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -17,8 +17,7 @@ export const load = (async ({cookies, locals}) => {
         console.error(response.status)
         return await handleError(response, cookies)
     }
-
     
-    const turmas: Turma[] = await response.json()
-    return { turmas };
+    const professores: Professor[] = await response.json()
+    return { professores };
 }) satisfies PageServerLoad;

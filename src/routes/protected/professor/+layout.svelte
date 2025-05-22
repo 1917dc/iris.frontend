@@ -10,7 +10,7 @@
   } from "lucide-svelte";
   import { Sidebar, SidebarItem } from "$lib/components/sidebar";
   import { HomeButton } from "$lib/components/home-button";
-  import type { Category } from "$lib/types/CategoriesCoordenador";
+  import type { Category } from "$lib/types/CategoriesProfessor";
 
   let activeCategory: Category;
 
@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-  <title>Coordenador</title>
+  <title>Professor</title>
 </svelte:head>
 
 <main>
@@ -28,28 +28,6 @@
     <div class="navbar bg-base-100">
       <div class="navbar-start">
         <Sidebar>
-          <div class="mb-3">
-            <button
-              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
-              on:click={() =>
-                (activeCategory = toggleCategory(
-                  activeCategory,
-                  "disciplinas"
-                ))}
-            >
-              <span>Disciplinas</span>
-              <BookText />
-            </button>
-            {#if activeCategory === "disciplinas"}
-              <div class="space-y-1">
-                <SidebarItem
-                  urlPath={"/protected/professor/listar/disciplinas"}
-                >
-                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
-                </SidebarItem>
-              </div>
-            {/if}
-          </div>
           <div class="mb-3">
             <button
               class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
@@ -71,6 +49,23 @@
             <button
               class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
               on:click={() =>
+                (activeCategory = toggleCategory(activeCategory, "professores"))}
+            >
+              <span>Professores</span>
+              <UserRoundPen />
+            </button>
+            {#if activeCategory === "professores"}
+              <div class="space-y-1">
+                <SidebarItem urlPath={"/protected/professor/listar/professores"}>
+                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                </SidebarItem>
+              </div>
+            {/if}
+          </div>
+          <div class="mb-3">
+            <button
+              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+              on:click={() =>
                 (activeCategory = toggleCategory(activeCategory, "conta"))}
             >
               <span>Conta</span>
@@ -79,7 +74,7 @@
             {#if activeCategory === "conta"}
               <div class="space-y-1">
                 <SidebarItem urlPath={"/protected/professor/conta/alterar"}>
-                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                  <svelte:fragment slot="title">Alterar</svelte:fragment>
                 </SidebarItem>
               </div>
             {/if}
