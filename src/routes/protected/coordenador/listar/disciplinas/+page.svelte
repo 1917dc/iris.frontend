@@ -43,9 +43,9 @@
           <div class="bg-gray-200 shadow-no-blur-sm rounded-lg p-8 flex flex-col justify-between h-56" id="card">
             <h2 class="text-3xl font-semibold text-primary mb-2">{disciplina.nome}</h2>
             {#if disciplina.professor.enabled}
-              <p class="text-xl font-medium">Professor: {disciplina.professor.nome}</p>
+              <p class="text-xl font-medium">Professor(a): {disciplina.professor.nome}</p>
             {:else}
-            <p class="text-xl font-medium">Professor: indefinido</p>
+              <p class="text-xl font-medium">Professor(a): indefinido</p>
             {/if}
           </div>
         {/each}

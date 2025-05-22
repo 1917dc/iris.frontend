@@ -24,8 +24,13 @@ export const handle = (async ({ event, resolve }) => {
     }
     event.locals.token = token;
 
+    const decodedToken = jwtDecode(token) as Token;
+    const isAluno = decodedToken.role === "ALUNO";
+
+    const endpoint = isAluno ? "/aluno/info-conta" : "/professores/info-conta";
+
     const response = await fetch(
-        `${BACKEND_URL}/professores/info-conta`,
+        `${BACKEND_URL}${endpoint}`,
         {
           method: "GET",
           headers: {

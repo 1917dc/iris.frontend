@@ -45,7 +45,7 @@
                         {disciplina.nome}
                     </p>
                     <p>
-                        <span class="font-bold text-primary">Professor: </span>{disciplina.professor.nome}
+                        <span class="font-bold text-primary">Professor(a): </span>{disciplina.professor.nome}
                     </p>
                     </div>
                     <button
