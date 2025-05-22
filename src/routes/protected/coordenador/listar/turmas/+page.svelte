@@ -49,7 +49,7 @@
           </h2>
           <p class="text-xl font-medium">Sala: {turma.sala}</p>
           <p class="text-xl font-medium">
-            Temporada Letiva: {turma.temporadaLetiva}
+            Temporada Letiva: {turma.temoporadaLetiva}
           </p>
 
           <button
@@ -94,14 +94,13 @@
           <p>{turmaSelecionada.sala}</p>
 
           <h3 class="text-xl font-semibold mt-4">Temporada Letiva:</h3>
-          <p>{turmaSelecionada.temporadaLetiva}</p>
+          <p>{turmaSelecionada.temoporadaLetiva}</p>
 
           <h3 class="text-xl font-semibold mt-4">Disciplinas:</h3>
           <ul>
-            {#each turmaSelecionada.disciplinas as disciplina}
+            {#each Object.entries(turmaSelecionada.disciplinas) as [disciplinaNome, professor]}
               <li class="text-lg">
-                <strong>{disciplina.nome}</strong> - Professor: {disciplina
-                  .professor.nome}
+                <strong>{disciplinaNome}</strong> - Professor: {professor}
               </li>
             {/each}
           </ul>
