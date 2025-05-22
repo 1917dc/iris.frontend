@@ -8,8 +8,6 @@
   let turmaSelecionada: any = null;
   let showModal = false;
 
-  console.log(turmas);
-
   const abrirModal = (turma) => {
     turmaSelecionada = turma;
     showModal = true;

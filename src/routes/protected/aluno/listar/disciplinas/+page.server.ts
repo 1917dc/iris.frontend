@@ -5,7 +5,7 @@ import type { Turma } from '$lib/types/Turma';
 
 export const load = (async ({cookies, locals}) => {
 
-    const response = await fetch(`${BACKEND_URL}/professores/listar-turmas`, {
+    const response = await fetch(`${BACKEND_URL}/aluno/turmas`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -17,8 +17,7 @@ export const load = (async ({cookies, locals}) => {
         console.error(response.status)
         return await handleError(response, cookies)
     }
-
     
-    const turmas: Turma[] = await response.json()
-    return { turmas };
+    const studentData: Turma = await response.json()
+    return { studentData };
 }) satisfies PageServerLoad;
