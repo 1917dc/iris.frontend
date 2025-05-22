@@ -53,7 +53,7 @@
     class="flex items-center justify-center mb-12"
     >
       <h1 class="text-4xl font-semibold text-primary">
-        Alterar Conta
+        Alterar Dados da Conta
       </h1>
     </div>
   

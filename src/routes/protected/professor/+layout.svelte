@@ -67,6 +67,23 @@
               </div>
             {/if}
           </div>
+          <div class="mb-3">
+            <button
+              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+              on:click={() =>
+                (activeCategory = toggleCategory(activeCategory, "conta"))}
+            >
+              <span>Conta</span>
+              <CircleUser />
+            </button>
+            {#if activeCategory === "conta"}
+              <div class="space-y-1">
+                <SidebarItem urlPath={"/protected/professor/conta/alterar"}>
+                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                </SidebarItem>
+              </div>
+            {/if}
+          </div>
         </Sidebar>
       </div>
       <div class="navbar-center">
