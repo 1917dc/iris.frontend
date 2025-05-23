@@ -24,14 +24,15 @@
 </svelte:head>
 
 <div class="mt-12 ml-10 mr-10">
-  <div class="h-24 flex items-center justify-between">
+  <div class="h-32 flex items-center justify-between">
     <div>
       <div class="inline">
         <h1 class="text-5xl font-semibold text-primary">Registro de Turmas</h1>
 
-        <h2 class="mt-3">
-          Inclui turmas com professores ou alunos desabilitados.
-        </h2>
+        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mt-3" role="alert">
+          <p class="font-bold">Importante!</p>
+          <p>Inclui turmas com professores ou alunos desabilitados.</p>
+        </div>
       </div>
     </div>
   </div>
