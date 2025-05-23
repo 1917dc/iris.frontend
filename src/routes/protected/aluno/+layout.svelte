@@ -51,13 +51,16 @@
                 on:click={() =>
                   (activeCategory = toggleCategory(activeCategory, "itinerarios"))}
               >
-                <span>Itinerários</span>
-                <BookText />
+                <span>Itinerário</span>
+                <Layers />
               </button>
               {#if activeCategory === "itinerarios"}
                 <div class="space-y-1">
                   <SidebarItem urlPath={"/protected/aluno/listar/itinerarios"}>
                     <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                  </SidebarItem>
+                  <SidebarItem urlPath={"/protected/aluno/registrar/inscricao-itinerario"}>
+                    <svelte:fragment slot="title">Inscrição</svelte:fragment>
                   </SidebarItem>
                 </div>
               {/if}
