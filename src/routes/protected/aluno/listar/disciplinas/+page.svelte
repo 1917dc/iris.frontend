@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import { X } from "lucide-svelte";
   
     export let data: PageData;
     const { studentData } = data;

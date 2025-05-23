@@ -7,6 +7,8 @@
     UserRoundPen,
     Layers,
     CircleUser,
+    BookCopy,
+    ClipboardPenLine,
   } from "lucide-svelte";
   import { Sidebar, SidebarItem } from "$lib/components/sidebar";
   import { HomeButton } from "$lib/components/home-button";
@@ -57,7 +59,6 @@
               </div>
             {/if}
           </div>
-
           <div class="mb-3">
             <button
               class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
@@ -81,7 +82,59 @@
               </div>
             {/if}
           </div>
-
+          <div class="mb-3">
+            <button
+              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+              on:click={() =>
+                (activeCategory = toggleCategory(activeCategory, "disciplina-itinerario"))}
+            >
+              <span>Itinerário</span>
+              <BookCopy />
+            </button>
+            {#if activeCategory === "disciplina-itinerario"}
+              <div class="space-y-1">
+                <SidebarItem
+                  urlPath={"/protected/coordenador/registrar/disciplina-itinerario"}
+                >
+                  <svelte:fragment slot="title">Registrar</svelte:fragment>
+                </SidebarItem>
+                <SidebarItem
+                  urlPath={"/protected/coordenador/listar/itinerario"}
+                >
+                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                </SidebarItem>
+                <SidebarItem
+                  urlPath={"/protected/coordenador/remover/itinerario"}
+                >
+                  <svelte:fragment slot="title">Remover</svelte:fragment>
+                </SidebarItem>
+              </div>
+            {/if}
+          </div>
+          <div class="mb-3">
+            <button
+              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+              on:click={() =>
+                (activeCategory = toggleCategory(activeCategory, "inscricao"))}
+            >
+              <span>Inscrições</span>
+              <ClipboardPenLine />
+            </button>
+            {#if activeCategory === "inscricao"}
+              <div class="space-y-1">
+                <SidebarItem
+                  urlPath={"/protected/coordenador/registrar/periodo-inscricao"}
+                >
+                  <svelte:fragment slot="title">Registrar</svelte:fragment>
+                </SidebarItem>
+                <SidebarItem
+                  urlPath={"/protected/coordenador/editar/inscricao"}
+                >
+                  <svelte:fragment slot="title">Acompanhar</svelte:fragment>
+                </SidebarItem>
+              </div>
+            {/if}
+          </div>
           <div class="mb-3">
             <button
               class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
