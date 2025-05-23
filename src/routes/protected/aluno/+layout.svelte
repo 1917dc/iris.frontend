@@ -45,6 +45,23 @@
                 </div>
               {/if}
             </div>
+            <div class="mb-3">
+              <button
+                class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+                on:click={() =>
+                  (activeCategory = toggleCategory(activeCategory, "itinerarios"))}
+              >
+                <span>Itinerários</span>
+                <BookText />
+              </button>
+              {#if activeCategory === "itinerarios"}
+                <div class="space-y-1">
+                  <SidebarItem urlPath={"/protected/aluno/listar/itinerarios"}>
+                    <svelte:fragment slot="title">Visualizar</svelte:fragment>
+                  </SidebarItem>
+                </div>
+              {/if}
+            </div>
           </Sidebar>
         </div>
         <div class="navbar-center">
