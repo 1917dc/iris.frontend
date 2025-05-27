@@ -24,12 +24,35 @@
 </svelte:head>
 
 <div class="mt-12 ml-10 mr-10">
+  <div
+    class="bg-secondary h-48 rounded-2xl pl-10 pr-10 flex items-center justify-between"
+  >
+    <div class="text-white">
+      <div class="inline">
+        <h1 class="text-4xl font-medium">
+          Bem-vindo(a) de volta, <span class="font-black"
+            >{data.user?.nome ?? "NOME"}</span
+          >
+        </h1>
+
+        <h2 class="mt-3">
+          Login feito como <span class="font-bold"
+            >{data.user?.role ?? "ROLE"}</span
+          >
+        </h2>
+      </div>
+    </div>
+
+    <img
+      src="/ilustracoes/personagem/beto/png/1x/beto16.png"
+      alt="beto"
+      class="h-auto max-h-full select-none"
+    />
+  </div>
   <div class="h-32 flex items-center justify-between">
     <div>
       <div class="inline">
-        <h1 class="text-5xl font-semibold text-primary">Registro de Turmas</h1>
-
-        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mt-3" role="alert">
+        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mt-3 rounded-lg" role="alert">
           <p class="font-bold">Importante!</p>
           <p>Inclui turmas com professores ou alunos desabilitados.</p>
         </div>

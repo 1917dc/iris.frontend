@@ -17,6 +17,13 @@
   function toggleCategory(current: Category, selected: Category) {
     return current === selected ? "none" : selected;
   }
+
+  function confirmLogout(event: SubmitEvent) {
+    const confirmation = window.confirm("Deseja mesmo sair?");
+    if (!confirmation) {
+      event.preventDefault();
+    }
+  }
 </script>
 
 <svelte:head>
@@ -85,7 +92,7 @@
         <HomeButton urlPath="/protected/professor/listar/turmas" />
       </div>
       <div class="navbar-end">
-        <form action="/auth/logout" method="POST">
+        <form action="/auth/logout" method="POST" on:submit={confirmLogout}>
           <button
             type="submit"
             class="btn btn-primary h-14 w-14 rounded-md shadow-no-blur-sm"
