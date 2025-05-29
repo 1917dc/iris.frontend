@@ -77,11 +77,6 @@
                   <svelte:fragment slot="title">Registrar</svelte:fragment>
                 </SidebarItem>
                 <SidebarItem
-                  urlPath={"/protected/coordenador/listar/disciplinas"}
-                >
-                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem
                   urlPath={"/protected/coordenador/remover/disciplina"}
                 >
                   <svelte:fragment slot="title">Remover</svelte:fragment>
