@@ -1,12 +1,17 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { MessageSquareWarning, X } from "lucide-svelte";
+  import { MessageSquareWarning, X, ListFilter } from "lucide-svelte";
 
   export let data: PageData;
   const { turmas } = data;
 
   let turmaSelecionada: any = null;
   let showModal = false;
+
+  let searchQuery = "";
+  let showFilters = false;
+  let selectedSala = '';
+  let selectedTemporada = '';
 
   const abrirModal = (turma) => {
     turmaSelecionada = turma;
@@ -17,28 +22,105 @@
     showModal = false;
     turmaSelecionada = null;
   };
+
+  $: filteredTurmas = turmas.filter((turma) => {
+    const matchesSearch =
+      turma.identificador.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      turma.sala.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesSala = selectedSala ? turma.sala === selectedSala : true;
+    const matchesTemporada = selectedTemporada ? turma.temoporadaLetiva === selectedTemporada : true;
+
+    return matchesSearch && matchesSala && matchesTemporada;
+  });
 </script>
 
 <svelte:head>
-  <title>Coordenador | Registro de Turmas</title>
+  <title>Coordenador | Turmas</title>
 </svelte:head>
 
 <div class="mt-12 ml-10 mr-10">
-  <div class="h-32 flex items-center justify-between">
-    <div>
+  <div
+    class="bg-secondary h-48 rounded-2xl pl-10 pr-10 flex items-center justify-between"
+  >
+    <div class="text-white">
       <div class="inline">
-        <h1 class="text-5xl font-semibold text-primary">Registro de Turmas</h1>
+        <h1 class="text-4xl font-medium">
+          Bem-vindo(a) de volta, <span class="font-black"
+            >{data.user?.nome ?? "NOME"}</span
+          >
+        </h1>
 
-        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mt-3" role="alert">
-          <p class="font-bold">Importante!</p>
-          <p>Inclui turmas com professores ou alunos desabilitados.</p>
-        </div>
+        <h2 class="mt-3">
+          Login feito como <span class="font-bold"
+            >{data.user?.role ?? "ROLE"}</span
+          >
+        </h2>
+      </div>
+    </div>
+
+    <img
+      src="/ilustracoes/personagem/beto/png/1x/beto16.png"
+      alt="beto"
+      class="h-auto max-h-full select-none"
+    />
+  </div>
+  <div class="h-22 flex items-center justify-between">
+    <div class="inline">
+      <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mt-3 rounded-lg" role="alert">
+        <p class="font-bold">Importante!</p>
+        <p>Inclui turmas com professores ou alunos desabilitados.</p>
       </div>
     </div>
   </div>
-  {#if turmas.length > 0}
-    <div class="grid gap-4 grid-cols-3 m-10 mx-0">
-      {#each turmas as turma}
+  <div class="mt-8 flex items-center space-x-2">
+    <input
+      type="text"
+      placeholder="Pesquisar por turma..."
+      bind:value={searchQuery}
+      class="w-[94%] bg-gray-200 shadow-no-blur-sm rounded-lg p-4 flex flex-col justify-between h-[4rem] focus:outline-none focus:ring-2 focus:ring-primary"
+    />
+    <button 
+      class="bg-gray-200 shadow-no-blur-sm rounded-lg p-4 flex items-center justify-center h-[4rem] focus:ring-2 focus:ring-primary w-[6%]"
+      on:click={() => showFilters = !showFilters}
+    >
+      <ListFilter class="text-gray-500" />
+    </button>
+  </div>
+
+  {#if showFilters}
+    <div class="mt-4 bg-gray-200 shadow-md rounded-lg p-4">
+      <div class="mb-4">
+        <label for="temporada" class="block text-gray-700 font-semibold">Temporada Letiva</label>
+        <select
+          id="temporada"
+          bind:value={selectedTemporada}
+          class="w-full mt-2 p-2 border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-gray-700"
+        >
+          <option value="">Todas</option>
+          {#each Array.from(new Set(turmas.map(t => t.temoporadaLetiva))) as temporada}
+            <option value={temporada}>{temporada}</option>
+          {/each}
+        </select>
+      </div>
+      <div class="mb-4">
+        <label for="sala" class="block text-gray-700 font-semibold">Sala</label>
+        <select
+          id="sala"
+          bind:value={selectedSala}
+          class="w-full mt-2 p-2 border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-gray-700"
+        >
+          <option value="">Todas</option>
+          {#each Array.from(new Set(turmas.map(t => t.sala))) as sala}
+            <option value={sala}>{sala}</option>
+          {/each}
+        </select>
+      </div>
+    </div>
+  {/if}
+  {#if filteredTurmas.length > 0}
+    <div class="grid gap-4 grid-cols-3 m-5 mx-0">
+      {#each filteredTurmas as turma}
         <div
           class="bg-gray-200 shadow-no-blur-sm rounded-lg p-8 flex flex-col justify-between h-56"
           id="card"
@@ -76,15 +158,15 @@
       class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
     >
       <div class="bg-white rounded-lg p-8 w-4/5 md:w-1/2">
-        <div class="flex justify-between">
-          <h2 class="text-2xl font-semibold text-primary">
+        <div class="flex justify-between items-center border-b pb-4 mb-4">
+          <h2 class="text-2xl font-bold text-gray-800">
             Detalhes da Turma: {turmaSelecionada.identificador}
           </h2>
           <button
-            class="text-xl font-bold text-gray-600"
+            class="text-gray-500 hover:text-red-500 transition"
             on:click={fecharModal}
           >
-            <X />
+            <X class="w-6 h-6"/>
           </button>
         </div>
 
@@ -96,10 +178,10 @@
           <p>{turmaSelecionada.temoporadaLetiva}</p>
 
           <h3 class="text-xl font-semibold mt-4">Disciplinas:</h3>
-          <ul>
+          <ul class="list-disc list-inside">
             {#each Object.entries(turmaSelecionada.disciplinas) as [disciplinaNome, professor]}
               <li class="text-lg">
-                <strong>{disciplinaNome}</strong> - Professor(a): {professor}
+                <strong>{disciplinaNome}</strong> – Professor(a): {professor}
               </li>
             {/each}
           </ul>
@@ -112,7 +194,7 @@
               {/each}
             </ul>
           {:else}
-            <p>Nenhum aluno registrado.</p>
+            <p class="italic text-gray-600">Nenhum aluno registrado.</p>
           {/if}
         </div>
       </div>

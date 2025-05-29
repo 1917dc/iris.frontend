@@ -19,6 +19,13 @@
   function toggleCategory(current: Category, selected: Category) {
     return current === selected ? "none" : selected;
   }
+
+  function confirmLogout(event: SubmitEvent) {
+    const confirmation = window.confirm("Deseja mesmo sair?");
+    if (!confirmation) {
+      event.preventDefault();
+    }
+  }
 </script>
 
 <svelte:head>
@@ -30,35 +37,6 @@
     <div class="navbar bg-base-100">
       <div class="navbar-start">
         <Sidebar>
-          <div class="mb-3">
-            <button
-              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
-              on:click={() =>
-                (activeCategory = toggleCategory(activeCategory, "disciplina"))}
-            >
-              <span>Disciplina</span>
-              <BookText />
-            </button>
-            {#if activeCategory === "disciplina"}
-              <div class="space-y-1">
-                <SidebarItem
-                  urlPath={"/protected/coordenador/registrar/disciplinas"}
-                >
-                  <svelte:fragment slot="title">Registrar</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem
-                  urlPath={"/protected/coordenador/listar/disciplinas"}
-                >
-                  <svelte:fragment slot="title">Visualizar</svelte:fragment>
-                </SidebarItem>
-                <SidebarItem
-                  urlPath={"/protected/coordenador/remover/disciplina"}
-                >
-                  <svelte:fragment slot="title">Remover</svelte:fragment>
-                </SidebarItem>
-              </div>
-            {/if}
-          </div>
           <div class="mb-3">
             <button
               class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
@@ -78,6 +56,30 @@
                 </SidebarItem>
                 <SidebarItem urlPath={"/protected/coordenador/editar/turma"}>
                   <svelte:fragment slot="title">Editar</svelte:fragment>
+                </SidebarItem>
+              </div>
+            {/if}
+          </div>
+          <div class="mb-3">
+            <button
+              class="text-lg font-semibold w-full text-left px-4 py-2 flex items-center justify-between"
+              on:click={() =>
+                (activeCategory = toggleCategory(activeCategory, "disciplina"))}
+            >
+              <span>Disciplina</span>
+              <BookText />
+            </button>
+            {#if activeCategory === "disciplina"}
+              <div class="space-y-1">
+                <SidebarItem
+                  urlPath={"/protected/coordenador/registrar/disciplinas"}
+                >
+                  <svelte:fragment slot="title">Registrar</svelte:fragment>
+                </SidebarItem>
+                <SidebarItem
+                  urlPath={"/protected/coordenador/remover/disciplina"}
+                >
+                  <svelte:fragment slot="title">Remover</svelte:fragment>
                 </SidebarItem>
               </div>
             {/if}
@@ -209,10 +211,10 @@
         </Sidebar>
       </div>
       <div class="navbar-center">
-        <HomeButton urlPath="/protected/coordenador/listar/disciplinas" />
+        <HomeButton urlPath="/protected/coordenador/listar/turmas" />
       </div>
       <div class="navbar-end">
-        <form action="/auth/logout" method="POST">
+        <form action="/auth/logout" method="POST" on:submit={confirmLogout}>
           <button
             type="submit"
             class="btn btn-primary h-14 w-14 rounded-md shadow-no-blur-sm"
