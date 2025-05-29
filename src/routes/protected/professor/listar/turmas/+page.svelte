@@ -90,15 +90,15 @@
       class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
     >
       <div class="bg-white rounded-lg p-8 w-4/5 md:w-1/2">
-        <div class="flex justify-between">
-          <h2 class="text-2xl font-semibold text-primary">
+        <div class="flex justify-between items-center border-b pb-4 mb-4">
+          <h2 class="text-2xl font-bold text-gray-800">
             Detalhes da Turma: {turmaSelecionada.identificador}
           </h2>
           <button
-            class="text-xl font-bold text-gray-600"
+            class="text-gray-500 hover:text-red-500 transition"
             on:click={fecharModal}
           >
-            <X />
+            <X class="w-6 h-6"/>
           </button>
         </div>
 
@@ -110,10 +110,10 @@
           <p>{turmaSelecionada.temporadaLetiva}</p>
 
           <h3 class="text-xl font-semibold mt-4">Disciplinas:</h3>
-          <ul>
+          <ul class="list-disc list-inside">
             {#each Object.entries(turmaSelecionada.disciplinas) as [disciplinaNome, professor]}
               <li class="text-lg">
-                <strong>{disciplinaNome}</strong> - Professor(a): {professor}
+                <strong>{disciplinaNome}</strong> – Professor(a): {professor}
               </li>
             {/each}
           </ul>
