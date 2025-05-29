@@ -1,12 +1,17 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { MessageSquareWarning, X } from "lucide-svelte";
+  import { MessageSquareWarning, X, ListFilter } from "lucide-svelte";
 
   export let data: PageData;
   const { turmas } = data;
 
   let turmaSelecionada: any = null;
   let showModal = false;
+
+  let searchQuery = "";
+  let showFilters = false;
+  let selectedSala = '';
+  let selectedTemporada = '';
 
   const abrirModal = (turma) => {
     turmaSelecionada = turma;
@@ -17,6 +22,17 @@
     showModal = false;
     turmaSelecionada = null;
   };
+
+  $: filteredTurmas = turmas.filter((turma) => {
+    const matchesSearch =
+      turma.identificador.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      turma.sala.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesSala = selectedSala ? turma.sala === selectedSala : true;
+    const matchesTemporada = selectedTemporada ? turma.temoporadaLetiva === selectedTemporada : true;
+
+    return matchesSearch && matchesSala && matchesTemporada;
+  });
 </script>
 
 <svelte:head>
@@ -50,18 +66,61 @@
     />
   </div>
   <div class="h-22 flex items-center justify-between">
-    <div>
-      <div class="inline">
-        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mt-3 rounded-lg" role="alert">
-          <p class="font-bold">Importante!</p>
-          <p>Inclui turmas com professores ou alunos desabilitados.</p>
-        </div>
+    <div class="inline">
+      <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mt-3 rounded-lg" role="alert">
+        <p class="font-bold">Importante!</p>
+        <p>Inclui turmas com professores ou alunos desabilitados.</p>
       </div>
     </div>
   </div>
-  {#if turmas.length > 0}
-    <div class="grid gap-4 grid-cols-3 m-10 mx-0">
-      {#each turmas as turma}
+  <div class="mt-8 flex items-center space-x-2">
+    <input
+      type="text"
+      placeholder="Pesquisar por turma..."
+      bind:value={searchQuery}
+      class="w-[94%] bg-gray-200 shadow-no-blur-sm rounded-lg p-4 flex flex-col justify-between h-[4rem] focus:outline-none focus:ring-2 focus:ring-primary"
+    />
+    <button 
+      class="bg-gray-200 shadow-no-blur-sm rounded-lg p-4 flex items-center justify-center h-[4rem] focus:ring-2 focus:ring-primary w-[6%]"
+      on:click={() => showFilters = !showFilters}
+    >
+      <ListFilter class="text-gray-500" />
+    </button>
+  </div>
+
+  {#if showFilters}
+    <div class="mt-4 bg-gray-200 shadow-md rounded-lg p-4">
+      <div class="mb-4">
+        <label for="temporada" class="block text-gray-700 font-semibold">Temporada Letiva</label>
+        <select
+          id="temporada"
+          bind:value={selectedTemporada}
+          class="w-full mt-2 p-2 border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-gray-700"
+        >
+          <option value="">Todas</option>
+          {#each Array.from(new Set(turmas.map(t => t.temoporadaLetiva))) as temporada}
+            <option value={temporada}>{temporada}</option>
+          {/each}
+        </select>
+      </div>
+      <div class="mb-4">
+        <label for="sala" class="block text-gray-700 font-semibold">Sala</label>
+        <select
+          id="sala"
+          bind:value={selectedSala}
+          class="w-full mt-2 p-2 border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-gray-700"
+        >
+          <option value="">Todas</option>
+          {#each Array.from(new Set(turmas.map(t => t.sala))) as sala}
+            <option value={sala}>{sala}</option>
+          {/each}
+        </select>
+      </div>
+    </div>
+  {/if}
+  {#if filteredTurmas.length > 0}
+    <div class="grid gap-4 grid-cols-3 m-5 mx-0">
+      {#each filteredTurmas as turma}
         <div
           class="bg-gray-200 shadow-no-blur-sm rounded-lg p-8 flex flex-col justify-between h-56"
           id="card"
